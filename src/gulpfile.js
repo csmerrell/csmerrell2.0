@@ -55,7 +55,7 @@ gulp.task('watch:all', gulp.series([
             ]
         });
         var page = (await browser.pages())[0];
-        await page.goto('http://localhost:8080', { waitUntil: 'load', timeout: 0});
+        await page.goto('http://localhost:3000', { waitUntil: 'load', timeout: 0});
 
         gulp.watch('statis/sass/**/*.scss', gulp.series('sass', 'sass:minify', function(done) { page.reload(); done(); }));
         gulp.watch('documentation/**/*.md', gulp.series('markdown'));

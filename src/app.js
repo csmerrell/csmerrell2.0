@@ -1,7 +1,7 @@
 // Import all dependencies & middleware here
 import express from 'express';
+import exphbs from 'express-handlebars';
 import bodyParser from 'body-parser';
-import mongoose from "mongoose";
 import path from 'path';
 
 //Routing and api controllers
@@ -12,21 +12,23 @@ import {
 // Init an Express App. 
 const app = express();
 
+app.set('view engine', 'handlebars');
+app.engine('handlebars', exphbs({
+    layoutsDir: __dirname + '/views/layouts',
+}));
+
 // Use your dependencies here
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const appController = express.Router();
-
-appController.get('/', (req, res) => { 
-    res.sendFile(path.join(__dirname, "/views/index.html"));
+app.get('/', (req, res) => { 
+    res.render('index', {layout: 'main'});
 });
 
-app.use('/', appController);
 app.use('/api/v1/page', pageController);
 app.use('/static', express.static('static'));
 
 // Start Server here
-app.listen(8080, () => {
-    console.log('Server is running on port 8080!');
+app.listen(3000, () => {
+    console.log('Server is running on port 3000!');
 });
