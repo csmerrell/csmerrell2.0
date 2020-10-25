@@ -1,0 +1,63 @@
+:root {
+    /* NEUTRAL Colors */
+    /* 
+        Non-dynamic. 
+        These stay static regardless of selected theme. 
+    */
+    --clr-fonts-white: #dfdfdf;
+    --clr-fonts-black: #101010;
+
+    --clr-primary: #2a6afe;
+    --clr-primary-hover: #1a5ade;
+
+    /* DARK theme colors */
+    --clr-dk-base: #2f2f2f;
+    --clr-dk-lighter: #4d4d4d;
+    --clr-dk-alt: #221f1f;
+    --clr-dk-border: #4f4f4f;
+    --clr-dk-accent: #de6aaa;
+
+    /* LIGHT theme colors */
+    --clr-lt-base: #ffffff;
+    --clr-lt-alt: #f0eeee;
+    --clr-lt-border: #bfbfbf;
+    --clr-lt-accent: #de3a6a;
+
+
+    /* DYNAMIC variables */
+    /*
+        Dynamic. These are used for most development, and their value shifts with the various themes.
+    */
+    --clr-bg: var(--clr-dk-base);
+    --clr-bg-alt: var(--clr-dk-alt);
+    --clr-border: var(--clr-dk-border);
+
+    --clr-fonts-base: var(--clr-fonts-white);
+
+    --clr-accent: var(--clr-dk-accent);
+}
+
+:root[theme='dark'] {
+    --clr-bg: var(--clr-dk-base);
+    --clr-bg-alt: var(--clr-dk-alt);
+    --clr-border: var(--clr-dk-border);    
+
+    --clr-fonts-base: var(--clr-fonts-white);
+
+    --clr-accent: var(--clr-dk-accent);
+}
+
+:root[theme='light'] {
+    --clr-bg: var(--clr-lt-base);
+    --clr-bg-alt: var(--clr-lt-alt);
+    --clr-border: var(--clr-lt-border);        
+
+    --clr-fonts-base: var(--clr-fonts-black);
+
+    --clr-accent: var(--clr-lt-accent);
+}
+
+body {
+    background-color: var(--clr-bg);
+    color: var(--clr-fonts-base);
+}

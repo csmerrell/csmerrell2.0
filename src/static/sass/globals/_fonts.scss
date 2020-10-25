@@ -1,0 +1,52 @@
+$font-primary-sans: 'Roboto', 'Verdana';
+$font-primary-serif: 'Palatino';
+
+$font-size-xs: 11px;
+$font-size-sm: 14px;
+$font-size-std: 18px;
+$font-size-med: 28px;
+$font-size-lg: 42px;
+$font-size-xl: 58px;
+
+$font-weight-thin: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 600;
+
+body {
+    font-family: $font-primary-sans;
+    font-size: $font-size-std;
+    color: var(--clr-fonts-base);
+    
+    .pure-g [class *= "pure-u"] {
+        font-family: $font-primary-sans;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: $font-primary-sans;
+        font-weight: $font-weight-thin;
+    }
+
+    h1 {
+        font-size: $font-size-xl;
+    }
+
+    h2 {
+        font-size: $font-size-lg;
+    }
+
+    h3 {
+        font-size: $font-size-med;
+    }
+
+    h4, h5, h6 {
+        font-size: $font-size-std;
+    }
+
+    b {
+        font-weight: $font-weight-bold;
+    }
+}
+
+:root {
+    font-size: $font-size-std;
+}

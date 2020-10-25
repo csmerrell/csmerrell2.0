@@ -12,17 +12,19 @@ import {
 // Init an Express App. 
 const app = express();
 
-app.set('view engine', 'handlebars');
-app.engine('handlebars', exphbs({
+app.engine('hbs', exphbs({
+    extname: '.hbs',
+    defaultLayout: 'centeredLayout',
     layoutsDir: __dirname + '/views/layouts',
 }));
+app.set('view engine', 'hbs');
 
 // Use your dependencies here
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => { 
-    res.render('index', {layout: 'main'});
+    res.render('index');
 });
 
 app.use('/api/v1/page', pageController);

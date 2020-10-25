@@ -1,0 +1,194 @@
+@import './fonts';
+@import './mixins';
+
+//Sass Variables
+$nav-height: 3.25rem;
+$nav-total-offset: $nav-height;
+$nav-light-theme: darken(#ffffff, 15%);
+$nav-dark-theme: lighten(#2f2f2f, 15%);
+
+.nav-row {
+    width: 100%;
+    display: inline-block;
+}
+@media(max-width: 1023px) { 
+    .nav-row {
+        width: 100%;
+    }
+}
+@media(min-width: 1600px) {
+    .nav-row {
+        width: calc(100% - 2rem);
+    }
+}
+
+.navbar {
+    @include pure-full-height;
+    height: $nav-total-offset;
+
+    background-color: var(--clr-primary);
+    color: var(--clr-fonts-white) !important;
+    height: $nav-height;
+    overflow: hidden;
+    z-index: 10;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    .nav-row {
+        position: absolute;
+    }
+
+    .brand {
+        text-transform: uppercase;
+        color: white;
+        font-size: $font-size-med;
+        padding: .75rem 0 !important;
+        &:hover {
+            color: white;
+        }
+    }
+
+    .pure-menu-item {
+        height: 100%;
+        :hover {
+            background: var(--clr-primary-hover);
+        }
+    }
+
+    .pure-menu-link {
+        padding: 1.1rem 1rem;
+        color: var(--clr-fonts-black) !important;
+    }
+    
+
+    @media (max-width: 1023px) {
+        .pure-menu-children {
+            padding-top: .5rem;
+            padding-left: 2rem;
+            border: none !important;
+        }
+    }
+
+    .pure-menu-heading {
+        padding: 1rem;
+    }
+
+    .align-right {
+        text-align: right;
+    }
+
+    .div-bar {
+        display:none;
+    }
+
+    @media (max-width: 1023px) {
+        .div-bar {
+            display:block;
+            border-bottom: 1px solid var(--clr-div-border);
+            margin: .5rem 1rem;
+            width: 12rem;
+        }
+    }
+
+    .hamburger-btn {
+        $hamburger-height: 2rem;
+
+        margin: .5rem 1rem;
+        height: $hamburger-height;
+        width: 2rem;
+        position: relative;
+        display: none;
+        cursor: pointer;
+
+        .bar {
+            $bar-center: calc(#{$hamburger-height} / 2);
+            
+            background-color: var(--clr-lt-border);
+            display: block;
+            width: 1.5rem;
+            height: 2px;
+            position: absolute;
+            top: $bar-center;
+            right: .25rem;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            transition: all 0.5s;
+            &:first-child {
+                -webkit-transform: translateY(.25rem);
+                -moz-transform: translateY(.25rem);
+                -ms-transform: translateY(.25rem);
+                transform: translateY(.25rem);
+            }
+            &:nth-child(2) {
+                -webkit-transform: translateY(-.25rem);
+                -moz-transform: translateY(-.25rem);
+                -ms-transform: translateY(-.25rem);
+                transform: translateY(-.25rem);
+            }
+        }
+        &.x {
+            .bar {
+                -webkit-transform: rotate(-45deg);
+                -moz-transform: rotate(-45deg);
+                -ms-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+                &:first-child {
+                    -webkit-transform: rotate(45deg);
+                    -moz-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                }
+            }
+        }
+    }
+    @media (max-width: 1023px) {
+        .hamburger-btn {
+            display: inline-block;
+        }
+    }
+
+    .theme-toggler {
+        box-sizing: border-box;
+        padding: calc((#{$nav-height} - 2rem) / 2) 0; 
+        .theme-front {
+            display: inline-block;
+            top: -.625rem;
+            position: relative;
+            margin-right: .5rem;
+        }
+        .toggle-btn {
+            display:inline-block;
+        }
+
+        .toggler-main {
+            + .toggle-btn {
+                background: $nav-dark-theme;
+                color: var(--clr-fonts-black);
+                &:after,&:before {
+                    color: var(--clr-fonts-white);
+                }
+            }
+            &:checked + .toggle-btn {
+                background: $nav-light-theme;
+                color: var(--clr-fonts-white);
+                &:after,&:before {
+                    color: var(--clr-fonts-black);
+                }
+            }
+        }
+    }
+
+    @media(max-width: 1023px) {
+        .theme-toggler {
+            top: -.5rem;
+            display: inline-block; 
+        } 
+    }
+    
+    @media(max-width: 355px) {
+        .theme-toggler {
+            display: none;
+        }
+    }
+}

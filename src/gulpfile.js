@@ -19,11 +19,11 @@ gulp.task('sass', function() {
 });
 
 gulp.task('sass:watch', function() {
-    gulp.watch('statis/sass/**/*.scss', gulp.series('sass'));
+    gulp.watch('static/sass/**/*.scss', gulp.series('sass'));
 });
 
 gulp.task('sass:minify', function() {
-    return gulp.src('wwwroot/sass/**/*.scss')
+    return gulp.src('static/sass/**/*.scss')
         .pipe(sass({ outputStyle: 'compressed'} ).on('error', sass.logError))
         .pipe(rename({ suffice: '.min' }))
         .pipe(gulp.dest('static/css/compiled'));
@@ -57,9 +57,10 @@ gulp.task('watch:all', gulp.series([
         var page = (await browser.pages())[0];
         await page.goto('http://localhost:3000', { waitUntil: 'load', timeout: 0});
 
-        gulp.watch('statis/sass/**/*.scss', gulp.series('sass', 'sass:minify', function(done) { page.reload(); done(); }));
+        gulp.watch('static/sass/**/*.scss', gulp.series('sass', 'sass:minify', function(done) { page.reload(); done(); }));
         gulp.watch('documentation/**/*.md', gulp.series('markdown'));
         gulp.watch('views/**/*.html', function(done) { page.reload(); done(); });
+        gulp.watch('views/**/*.hbs', function(done) { page.reload(); done(); });
         gulp.watch('static/**/*.js', function(done) { page.reload(); done(); });
     }
 ]))

@@ -1,0 +1,27 @@
+$footer-height: 6rem;
+$footer-total-offset: $footer-height;
+
+#bottomnav {
+    position: relative;
+    min-height: $footer-height;
+    box-sizing: content-box;
+    margin-top: -.2rem;
+
+    hr {
+        border-width:0;
+        border-top: solid 1px var(--clr-div-border);
+        margin-block-start: 0;
+        margin-block-end: 0; 
+    }
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: .5rem;
+    }
+    
+    @mixin footer-block {
+        padding: .5rem 0;
+        margin: 1rem 0;
+        box-sizing: border-box;
+    }
+}

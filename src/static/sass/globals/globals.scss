@@ -1,0 +1,17 @@
+@import './colors';
+@import './fonts';
+@import './navbar';
+@import './footer';
+@import './notifications';
+
+body {
+    min-height: 100%;
+}
+
+.main-body {
+    min-height: calc(100vh - #{$footer-total-offset} - #{$nav-total-offset} - 3rem);
+    margin-bottom: 3rem;
+    &.borderless {
+        margin-top: 0;
+    }
+}
