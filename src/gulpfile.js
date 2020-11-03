@@ -6,7 +6,6 @@ sass.compiler = require('node-sass');
 var rename = require('gulp-rename');
 
 var header = require('gulp-header');
-var footer = require('gulp-footer');
 
 var markdown = require('gulp-markdown');
 
@@ -16,10 +15,6 @@ gulp.task('sass', function() {
     return gulp.src('static/sass/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('static/css/compiled'));
-});
-
-gulp.task('sass:watch', function() {
-    gulp.watch('static/sass/**/*.scss', gulp.series('sass'));
 });
 
 gulp.task('sass:minify', function() {
@@ -32,15 +27,14 @@ gulp.task('sass:minify', function() {
 gulp.task('markdown', function() {
     return gulp.src('documentation/**/*.md')
         .pipe(markdown())
-        .pipe(header(`<!-- This page was auto generated from a .md formatted file --> \n 
-            <link rel="stylesheet" href="~/lib/highlightjs/highlight.css" />\n
+        .pipe(header(`<link rel="stylesheet" href="~/lib/highlightjs/highlight.css" />\n
             <script type="text/javascript" src="~/lib/highlightjs/highlight.js"></script>\n
             <script>hljs.initHighlightingOnLoad();</script>\n\n\n`))
         .pipe(rename({extname: '.html'}))
         .pipe(gulp.dest('views/documentation'));
 });
 
-gulp.task('watch:all', gulp.series([
+gulp.task('run:attach', gulp.series([
     'sass',
     'sass:minify',
     'markdown',

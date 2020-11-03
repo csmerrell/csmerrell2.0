@@ -1,1 +1,11 @@
-<h1>Hell world!</h1>
+<block-slideshow>
+</block-slideshow>
+
+<script type="module">
+    import { BlockSlideshow } from "/static/js/components/blockSlideshow.js";
+
+    window.vms["vm-slideshow"] = new Vue({
+        components: [ BlockSlideshow ]
+    })
+
+</script>
