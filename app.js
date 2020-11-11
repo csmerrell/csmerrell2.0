@@ -43,7 +43,8 @@ app.use('/api/v1/page', pageController);
 app.use('/static', express.static('static'));
 app.use('/favicon.ico', express.static('static/img/favicon.ico'));
 
-// Start Server here
-app.listen(3000, () => {
-    console.log('Server is running on port 3000!');
+app.set('port', (process.env.PORT || 5000));
+
+var server = app.listen(app.get('port'), () => {
+    console.log(`Server is running on port ${app.get('port')}!`);
 });
