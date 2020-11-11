@@ -16,18 +16,6 @@
             $title-padding: 1rem;
             text-align: center;
 
-            .obfuscation-row {
-                position: absolute;
-                top:0;
-                left:0;
-                right:0;
-                height: calc(#{$font-size-xl} + (#{$title-padding} * 2));
-
-                opacity: .8;
-                background-color: var(--clr-bg-alt);
-                z-index: 10;
-            }
-
             h1 {
                 position: absolute;
                 top: 0;
@@ -74,8 +62,23 @@
         }
 
         .bc-block-action-list {
-            .bs-block-action {
+            .bc-block-action-container {
+                width: auto;
+                display: inline-block;
+                margin: 0 .5rem;
+            }
+        }
 
+        .bc-block-action-container {
+            width: 100%;
+            position: absolute;
+            bottom: 3rem;
+            text-align: center;
+            z-index: 10;
+
+            .bc-block-action {
+                font-size: $font-size-med;
+                box-shadow: 0 0 1rem var(--clr-bg-alt);
             }
         }
 

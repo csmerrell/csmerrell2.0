@@ -29,3 +29,40 @@ code {
 [v-cloak] {
     display: none;
 }
+
+a {
+    color: var(--clr-accent);
+
+    &:hover {
+        color: var(--clr-accent-alt);
+    }
+
+    &:active {
+        color: var(--clr-accent-active);
+    }
+
+    &:visited {
+        color: var(--clr-accent-inactive);
+    }
+}
+
+.pure-button {
+    background-color: var(--clr-accent);
+    color: var(--clr-accent-font);
+
+    &:hover {
+        background-color: var(--clr-accent-alt);
+    }
+
+    &:active {
+        background-color: var(--clr-accent-active);
+    }
+
+    &:disabled {
+        background-color: var(--clr-accent-inactive);
+    }
+}
+
+.hidden {
+    display: none;
+}

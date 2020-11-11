@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => { 
-    res.render('index', { title: "CSM Skill Samples", layout: "borderlessLayout" });
+    res.render('index', { title: "CSM Skill Samples", layout: "wideLayout" });
 });
 app.get('/samples', (req, res) => { 
     res.render('samples/index');

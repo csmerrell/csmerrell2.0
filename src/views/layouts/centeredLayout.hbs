@@ -31,19 +31,7 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
-    <div id="topnav" class="navbar">
-      <div class="nav-row pure-g">
-        <div class="pure-u-1-24 pure-u-md-1-12 pure-u-xl-1-8">
-          <!-- Left reserved space -->
-        </div>
-        <div class="pure-u-11-12 pure-u-md-5-6 pure-u-xl-3-4">
-          {{> navbar}}
-        </div>
-        <div class="pure-u-1-24 pure-u-md-1-12 pure-u-xl-1-8">
-          <!-- Right spacing at large screen sizes -->          
-        </div>
-      </div>
-    </div>
+    {{> navbar}}
 
     <div class="main-body pure-g">
         <div class="pure-u-1-24 pure-u-md-1-12 pure-u-xl-1-8">
@@ -74,35 +62,5 @@
         </div>
       </div>
     </div>
-
-    <script>
-      /* Theme Controls */
-      if(window.localStorage['csm_theme'] == 'light') {
-        document.documentElement.setAttribute('theme', 'light');
-        document.getElementById('themeToggler').checked = true;
-      } else {
-        document.documentElement.setAttribute('theme', 'dark');
-        document.getElementById('themeToggler').checked = false;        
-      }
-
-      function themeToggle() {
-        if(document.documentElement.getAttribute('theme') == 'dark') {
-          document.documentElement.setAttribute('theme', 'light');
-          document.getElementById('themeToggler').checked = true;
-          window.localStorage['csm_theme'] = 'light';
-        }
-        else {
-          document.documentElement.setAttribute('theme', 'dark');
-          document.getElementById('themeToggler').checked = false;
-          window.localStorage['csm_theme'] = 'dark';          
-        }
-      }
-
-      /* Hamburger responsive tool */
-      function toggleHamburgerMenu() {
-        topnav.classList.toggle('open');
-        document.getElementById('toggle').classList.toggle('x');
-      }
-    </script>
   </body>
 </html>

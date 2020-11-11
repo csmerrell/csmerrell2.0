@@ -4,8 +4,6 @@
 //Sass Variables
 $nav-height: 3.25rem;
 $nav-total-offset: $nav-height;
-$nav-light-theme: darken(#ffffff, 15%);
-$nav-dark-theme: lighten(#2f2f2f, 15%);
 
 .nav-row {
     width: 100%;
@@ -26,8 +24,8 @@ $nav-dark-theme: lighten(#2f2f2f, 15%);
     @include pure-full-height;
     height: $nav-total-offset;
 
-    background: linear-gradient(var(--clr-primary), var(--clr-primary-alt));
-    color: var(--clr-fonts-white) !important;
+    background: var(--clr-primary);
+    color: var(--clr-fonts-black);
     height: $nav-height;
     overflow: hidden;
     z-index: 10;
@@ -41,12 +39,9 @@ $nav-dark-theme: lighten(#2f2f2f, 15%);
 
     .brand {
         text-transform: uppercase;
-        color: white;
-        font-size: $font-size-med;
+        color: var(--clr-fonts-black);
+        font-size: $font-size-med-plus;
         padding: .75rem 0 !important;
-        &:hover {
-            color: white;
-        }
     }
 
     .pure-menu-item {
@@ -57,7 +52,7 @@ $nav-dark-theme: lighten(#2f2f2f, 15%);
     }
 
     .pure-menu-link {
-        padding: 1.1rem 1rem;
+        padding: 1.4rem 1rem .6rem 1rem;
         color: var(--clr-fonts-black) !important;
     }
     
@@ -167,17 +162,14 @@ $nav-dark-theme: lighten(#2f2f2f, 15%);
 
         .toggler-main {
             + .toggle-btn {
-                background: $nav-dark-theme;
-                color: var(--clr-fonts-black);
+                background: var(--clr-accent);
                 &:after,&:before {
-                    color: var(--clr-fonts-white);
+                    color: var(--clr-fonts-black);
                 }
             }
             &:checked + .toggle-btn {
-                background: $nav-light-theme;
-                color: var(--clr-fonts-white);
                 &:after,&:before {
-                    color: var(--clr-fonts-black);
+                    color: var(--clr-fonts-white);
                 }
             }
         }

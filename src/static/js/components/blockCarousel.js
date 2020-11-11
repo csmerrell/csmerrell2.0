@@ -212,15 +212,35 @@ export let BlockContent = Vue.component('block-content', {
     `
 })
 
-export let BlockAction = Vue.component('block-action', {
-    data: function() {
-        return {
+export let BlockActionList = Vue.component('block-action-list', {
+    template: /* html */`
+        <div class="bc-block-action-list">
+            <div class="pure-u-1 bc-list-center">
+                <slot></slot>
+            </div>
+        </div>
+    `
+})
 
+export let BlockAction = Vue.component('block-action', {
+    props: {
+        href: String,
+        action: Function
+    },
+    methods: {
+        performAction: function() {
+            if(this.href) {
+                window.location = this.href;
+            } else if(this.action) {
+                this.action();
+            }
         }
     },
     template: /* html */`
-        <div class="bc-block-action">
-            <slot></slot>
+        <div class="bc-block-action-container">
+            <div class="bc-block-action pure-button" v-on:click="performAction">
+                <slot></slot>
+            </div>
         </div>
     `
 })

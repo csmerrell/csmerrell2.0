@@ -20,30 +20,32 @@
     --clr-dk-alt: #221f1f;
     --clr-dk-border: #4f4f4f;
 
-    --clr-dk-primary: #944dff;
-    --clr-dk-primary-alt: #ffffff;
-    --clr-dk-primary-active: #ffffff;
-    --clr-dk-primary-inactive: #ffffff;
+    --clr-dk-primary: #ffb3e6;
+    --clr-dk-primary-alt: #ff80d5;
+    --clr-dk-primary-active: #ff4dc4;
+    --clr-dk-primary-inactive: #ffe6f7;
 
-    --clr-dk-accent: #de6aaa;
-    --clr-dk-accent-alt: #ffffff;
-    --clr-dk-accent-active: #ffffff;
-    --clr-dk-accent-inactive: #ffffff;
+    --clr-dk-accent: #da255b;
+    --clr-dk-accent-alt: #c42152;
+    --clr-dk-accent-active: #991a40;
+    --clr-dk-accent-inactive: #f4bece;
+    --clr-dk-accent-font: #ffffff;
 
     /* LIGHT theme colors */
     --clr-lt-base: #ffffff;
     --clr-lt-alt: #f6f6f6;
     --clr-lt-border: #bfbfbf;
 
-    --clr-lt-primary: #2947a3;
-    --clr-lt-primary-alt: #ffffff;
-    --clr-lt-primary-active: #ffffff;
-    --clr-lt-primary-inactive: #ffffff;
+    --clr-lt-primary: #ff80d5;
+    --clr-lt-primary-alt: #ff4dc4;
+    --clr-lt-primary-active: #ff1ab3;
+    --clr-lt-primary-inactive: #ffb3e6;
 
-    --clr-lt-accent: #de3a6a;
-    --clr-lt-accent-alt: #ffffff;
-    --clr-lt-accent-active: #ffffff;
-    --clr-lt-accent-inactive: #ffffff;
+    --clr-lt-accent: #007399;
+    --clr-lt-accent-alt: #0099cc;
+    --clr-lt-accent-active: #00bfff;
+    --clr-lt-accent-inactive: #00394d;
+    --clr-lt-accent-font: #ffffff;
 
 
     /* DYNAMIC variables */
@@ -60,7 +62,15 @@
     --clr-fonts-inactive: var(--clr-fonts-white-inactive);
 
     --clr-primary: var(--clr-dk-primary);
+    --clr-primary-alt: var(--clr-dk-primary-alt);
+    --clr-primary-active: var(--clr-dk-primary-active);
+    --clr-primary-inactive: var(--clr-dk-primary-inactive);
+
     --clr-accent: var(--clr-dk-accent);
+    --clr-accent-alt: var(--clr-dk-accent-alt);
+    --clr-accent-active: var(--clr-dk-accent-active);
+    --clr-accent-inactive: var(--clr-dk-accent-inactive);
+    --clr-accent-font: var(--clr-dk-accent-font);
 }
 
 :root[theme='dark'] {
@@ -74,7 +84,15 @@
     --clr-fonts-inactive: var(--clr-fonts-white-inactive);
 
     --clr-primary: var(--clr-dk-primary);
+    --clr-primary-alt: var(--clr-dk-primary-alt);
+    --clr-primary-active: var(--clr-dk-primary-active);
+    --clr-primary-inactive: var(--clr-dk-primary-inactive);
+
     --clr-accent: var(--clr-dk-accent);
+    --clr-accent-alt: var(--clr-dk-accent-alt);
+    --clr-accent-active: var(--clr-dk-accent-active);
+    --clr-accent-inactive: var(--clr-dk-accent-inactive);
+    --clr-accent-font: var(--clr-dk-accent-font);
 }
 
 :root[theme='light'] {
@@ -88,7 +106,15 @@
     --clr-fonts-inactive: var(--clr-fonts-white-inactive);
 
     --clr-primary: var(--clr-lt-primary);
+    --clr-primary-alt: var(--clr-lt-primary-alt);
+    --clr-primary-active: var(--clr-lt-primary-active);
+    --clr-primary-inactive: var(--clr-lt-primary-inactive);
+
     --clr-accent: var(--clr-lt-accent);
+    --clr-accent-alt: var(--clr-lt-accent-alt);
+    --clr-accent-active: var(--clr-lt-accent-active);
+    --clr-accent-inactive: var(--clr-lt-accent-inactive);
+    --clr-accent-font: var(--clr-lt-accent-font);
 }
 
 body {
