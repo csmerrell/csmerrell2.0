@@ -72,6 +72,10 @@ $nav-dark-theme: lighten(#2f2f2f, 15%);
 
     .pure-menu-heading {
         padding: 1rem;
+
+        .low-caps {
+            font-size: $font-size-std;
+        }
     }
 
     .align-right {

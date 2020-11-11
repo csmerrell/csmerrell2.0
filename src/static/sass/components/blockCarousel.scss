@@ -1,0 +1,169 @@
+@import '../globals/fonts';
+
+.bc-block-carousel {   
+    position: relative;
+    $block-height: 42rem;
+
+    .bc-block {
+        z-index: 1;
+        height: $block-height;
+        overflow: hidden;
+
+        .bc-block-title {
+            position: absolute;
+            right: 0;
+            width: 100%;
+            $title-padding: 1rem;
+            text-align: center;
+
+            .obfuscation-row {
+                position: absolute;
+                top:0;
+                left:0;
+                right:0;
+                height: calc(#{$font-size-xl} + (#{$title-padding} * 2));
+
+                opacity: .8;
+                background-color: var(--clr-bg-alt);
+                z-index: 10;
+            }
+
+            h1 {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                margin: 0;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                z-index: 100;
+            }
+        }
+
+        .bc-block-content {
+            $top-padding: 6em;
+
+            position: relative;
+            background: var(--clr-bg-alt);
+            padding-top: $top-padding !important;
+
+            .fade-container {
+                position: relative;
+                .fade-out-bottom {
+                    $row-height: 8rem;
+    
+                    position: absolute;
+                    top: calc(#{$block-height} - #{$top-padding} - #{$row-height});
+                    left: 0;
+                    right: 0;
+                    height: $row-height;
+                    background: linear-gradient(rgba(0,0,0,0), var(--clr-bg-alt));
+                }
+
+                &:after {
+                    content: '';
+                    $row-height: 2rem;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: $row-height;
+                    background: linear-gradient(to right, rgba(0,0,0,0), var(--clr-bg-alt));
+                }
+            }
+        }
+
+        .bc-block-action-list {
+            .bs-block-action {
+
+            }
+        }
+
+        &.fade-out {
+            opacity: 0;
+            transition: .5s;
+        }
+
+        &.pre-fade-in {
+            position: absolute;
+            opacity: 0;
+            display: block !important;
+        }
+
+        &.fade-in {
+            position: relative;
+            opacity: 1;
+            transition: .5s;
+        }
+    }
+
+    .bc-slide-trigger {
+        display:none;
+
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index:10;
+
+        cursor: pointer;
+
+        .fa {
+            font-size: $font-size-lg;
+        }
+
+        &.left-anchor {
+            padding: .25rem;
+            padding-right: .5rem;
+            left: .25rem;
+        }
+
+        &.right-anchor {
+            padding: .25rem;
+            padding-right:.5rem;
+            right: .5rem;
+        }
+
+        &:hover {
+            color: var(--clr-fonts-alt);
+        }
+
+        &:active {
+            color: var(--clr-fonts-active);
+        }
+    }
+
+    &:hover {
+        .bc-slide-trigger {
+            display: inline-block;
+        }
+    }
+
+    .bc-nav-dots {
+        position: absolute;
+        bottom: .75rem;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 10;
+
+        .nav-dot {
+            font-size: $font-size-xs;
+            color: var(--clr-fonts-inactive);
+            margin: 0 .25rem;
+            padding: .25rem;
+            cursor: pointer;
+
+            &.selected {
+                color: var(--clr-fonts-base);
+            }
+
+            &:active {
+                color: var(--clr-fonts-active);
+            }
+
+            &:hover {
+                color: var(--clr-fonts-alt);
+            }
+        }
+    }
+}

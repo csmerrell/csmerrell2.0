@@ -4,7 +4,7 @@ import exphbs from 'express-handlebars';
 import bodyParser from 'body-parser';
 import path from 'path';
 
-//Routing and api controllers
+//Api controllers
 import { 
     pageController 
 } from './api';
@@ -24,11 +24,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => { 
-    res.render('index');
+    res.render('index', { title: "CSM Skill Samples", layout: "borderlessLayout" });
+});
+app.get('/samples', (req, res) => { 
+    res.render('samples/index');
+});
+app.get('/about', (req, res) => { 
+    res.render('about/index');
+});
+app.get('/storytelling', (req, res) => { 
+    res.render('storytelling/index');
 });
 
 app.use('/api/v1/page', pageController);
 app.use('/static', express.static('static'));
+app.use('/favicon.ico', express.static('static/img/favicon.ico'));
 
 // Start Server here
 app.listen(3000, () => {

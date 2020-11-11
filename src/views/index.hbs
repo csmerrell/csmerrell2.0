@@ -1,11 +1,169 @@
-<block-slideshow>
-</block-slideshow>
+<div id="app">
+    <block-carousel v-cloak>
+        <block>
+            <block-title>
+                Component-driven Web Design
+            </block-title>
+            <block-content>
+                <highlightjs autodetect :code="codeSample1" />                
+            </block-content>
+        </block>
+        <block>
+            <block-title>
+                Event-driven UX
+            </block-title>
+            <block-content>
+                <highlightjs autodetect :code="codeSample2" />                
+            </block-content>
+        </block>
+    </block-carousel>
+</div>
 
 <script type="module">
-    import { BlockSlideshow } from "/static/js/components/blockSlideshow.js";
+    import { BlockCarousel, Block } from "/static/js/components/blockCarousel.js";
 
-    window.vms["vm-slideshow"] = new Vue({
-        components: [ BlockSlideshow ]
+    window.vms["vm-carousel"] = new Vue({
+        el: "#app",
+        components: [ BlockCarousel, Block ],
+        data: {
+            codeSample1: `export let BlockCarousel = Vue.component('block-carousel', {
+    data: function() {
+        return {
+            blocks: [],
+            currentBlockIdx: 0,
+            countdown: 20,
+            actionLocked: false
+        }
+    },
+    props: {
+        beforeSlide: Function,
+        onSlide: Function,
+    },
+    methods: {
+        slidePrev: function() {
+            if(!this.actionLocked) {
+                this.actionLocked = true;
+
+                let nextBlockIdx = this.currentBlockIdx - 1;
+                if(nextBlockIdx < 0) {
+                    nextBlockIdx = this.$children.length - 1;
+                }
+
+                this.transition(this.currentBlockIdx, nextBlockIdx)
+            }
+        },
+        slideNext: function() {
+            if(!this.actionLocked) {
+                this.actionLocked = true;
+
+                let nextBlockIdx = this.currentBlockIdx + 1;
+                if(nextBlockIdx > this.$children.length - 1) {
+                    nextBlockIdx = 0;
+                }
+
+                this.transition(this.currentBlockIdx, nextBlockIdx)
+            }
+        },
+        slideTo: function(idx) {
+            if(!this.actionLocked) {
+                this.actionLocked = true;
+
+                this.transition(this.currentBlockIdx, idx)
+            }
+        },
+        transition: function(currIdx, nextIdx) {
+            if(this.beforeSlide) {
+                this.beforeSlide(this.$children(nextIdx), nextIdx);
+            }
+            this.blocks[nextIdx].isSelected = true;
+            this.blocks[currIdx].isSelected = false;
+
+            let fadeOutPromise = this.$children[currIdx].fadeOut();
+
+            //let the leaving block fade roughly halfway (~.25s) before starting the next block's fade-in
+            this.$children[nextIdx].fadeIn(fadeOutPromise).then(() => {
+                this.currentBlockIdx = nextIdx;
+
+                if(this.onSlide) {
+                    this.onSlide(this.$children(this.currentBlockIdx), this.currentBlockIdx);
+                }
+
+                this.actionLocked = false;        
+            });   
+        },
+        timer: function() {
+
+        },
+    },
+    created: function() {
+    },
+    mounted: function() {
+        this.$children[this.currentBlockIdx].setActive();
+        this.blocks = this.$children.map((child) => {
+            return {
+                isSelected: child.$data.isActive
+            }
+        });
+    },
+    template: /* html */\`
+        <div class="bc-block-carousel pure-g">
+            <link href='/static/css/compiled/components/blockCarousel.css' rel="stylesheet" />
+            <div class="bc-slide-trigger left-anchor" v-on:click="slidePrev">
+                <span class="fa fa-chevron-left"></span>
+            </div>
+            <div class="pure-u-1">
+                <slot></slot>
+            </div>
+            <div class="bc-slide-trigger right-anchor" v-on:click="slideNext">
+                <span class="fa fa-chevron-right"></span>
+            </div>
+            <div class="bc-nav-dots">
+                <span v-for="(block, idx) in blocks" class="fa fa-circle nav-dot" :class="{ selected: block.isSelected }" v-on:click="slideTo(idx)"></span>
+            </div>
+        </div>
+    \`
+})`,
+            codeSample2: `methods: {
+    setActive: function() {
+        this.isActive = true;
+    },
+    toggleActive: function() {
+        let isFadeIn = !this.isActive;
+
+        if(isFadeIn) {
+            this.isActive = !this.isActive;
+        }
+
+        return new Promise((resolve, reject) => {
+            if(!isFadeIn) {
+                this.setAnimation("fadeOut", resolve);
+            } else {
+                this.setAnimation("fadeIn", resolve);
+            }
+        }).then(() => {
+            this.isActive = isFadeIn;
+            this.$el.classList.remove("fade-out");
+            this.$el.classList.remove("pre-fade-in");
+            this.$el.classList.remove("fade-in");
+        })
+    },
+    setAnimation: function(animationName, resolve) {
+        this.$el.addEventListener('transitionend', () => { this.onAnimationComplete(resolve) });
+        
+        if(animationName == "fadeOut") {
+            this.$el.classList.add("fade-out");
+        } else {
+            this.$el.classList.add("pre-fade-in");
+            this.isActive = true;
+            debugger;
+            this.$el.classList.add("fade-in");
+        }
+    },
+    onAnimationComplete: function(resolve) {
+        this.$el.removeEventListener('transitionend', this.onAnimationComplete);
+        resolve();
+    }
+},`
+        }
     })
-
 </script>

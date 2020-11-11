@@ -3,6 +3,7 @@
 @import './navbar';
 @import './footer';
 @import './notifications';
+@import './highlightThemes';
 
 body {
     min-height: 100%;
@@ -14,4 +15,17 @@ body {
     &.borderless {
         margin-top: 0;
     }
+}
+
+pre {
+    margin: 0;
+}
+
+code {
+    padding: 1rem 2rem !important;
+    border-radius: 2px;
+}
+
+[v-cloak] {
+    display: none;
 }
