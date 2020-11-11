@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm app.js",
+    "start": "gulp sass && gulp markdown && node -r esm app.js",
     "debug": "node inspect -r esm app.js",
     "dev": "nodemon -r esm app.js"
   },
