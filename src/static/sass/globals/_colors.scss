@@ -14,21 +14,36 @@
     --clr-fonts-black-active: #505050;
     --clr-fonts-black-inactive: #808080;
 
-    --clr-primary: #2a6afe;
-    --clr-primary-hover: #1a5ade;
-
     /* DARK theme colors */
     --clr-dk-base: #2f2f2f;
     --clr-dk-lighter: #4d4d4d;
     --clr-dk-alt: #221f1f;
     --clr-dk-border: #4f4f4f;
+
+    --clr-dk-primary: #944dff;
+    --clr-dk-primary-alt: #ffffff;
+    --clr-dk-primary-active: #ffffff;
+    --clr-dk-primary-inactive: #ffffff;
+
     --clr-dk-accent: #de6aaa;
+    --clr-dk-accent-alt: #ffffff;
+    --clr-dk-accent-active: #ffffff;
+    --clr-dk-accent-inactive: #ffffff;
 
     /* LIGHT theme colors */
     --clr-lt-base: #ffffff;
     --clr-lt-alt: #f6f6f6;
     --clr-lt-border: #bfbfbf;
+
+    --clr-lt-primary: #2947a3;
+    --clr-lt-primary-alt: #ffffff;
+    --clr-lt-primary-active: #ffffff;
+    --clr-lt-primary-inactive: #ffffff;
+
     --clr-lt-accent: #de3a6a;
+    --clr-lt-accent-alt: #ffffff;
+    --clr-lt-accent-active: #ffffff;
+    --clr-lt-accent-inactive: #ffffff;
 
 
     /* DYNAMIC variables */
@@ -44,6 +59,7 @@
     --clr-fonts-active: var(--clr-fonts-white-active);
     --clr-fonts-inactive: var(--clr-fonts-white-inactive);
 
+    --clr-primary: var(--clr-dk-primary);
     --clr-accent: var(--clr-dk-accent);
 }
 
@@ -57,6 +73,7 @@
     --clr-fonts-active: var(--clr-fonts-white-active);
     --clr-fonts-inactive: var(--clr-fonts-white-inactive);
 
+    --clr-primary: var(--clr-dk-primary);
     --clr-accent: var(--clr-dk-accent);
 }
 
@@ -70,6 +87,7 @@
     --clr-fonts-active: var(--clr-fonts-black-active);
     --clr-fonts-inactive: var(--clr-fonts-white-inactive);
 
+    --clr-primary: var(--clr-lt-primary);
     --clr-accent: var(--clr-lt-accent);
 }
 

@@ -1,6 +1,6 @@
 // Import all dependencies & middleware here
 import express from 'express';
-import exphbs from 'express-handlebars';
+import exphbs from 'exphbs';
 import bodyParser from 'body-parser';
 import path from 'path';
 
@@ -12,12 +12,15 @@ import {
 // Init an Express App. 
 const app = express();
 
-app.engine('hbs', exphbs({
+app.engine('hbs', exphbs.create({
     extname: '.hbs',
-    defaultLayout: 'centeredLayout',
-    layoutsDir: __dirname + '/views/layouts',
+    partialsDir: __dirname + '/views/partials',
+    layoutsDir: __dirname + '/views/layouts'
 }));
+app.locals.layout = 'centeredLayout';
+
 app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
 
 // Use your dependencies here
 app.use(bodyParser.urlencoded({ extended: false }));

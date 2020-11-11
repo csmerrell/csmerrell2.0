@@ -26,7 +26,7 @@ $nav-dark-theme: lighten(#2f2f2f, 15%);
     @include pure-full-height;
     height: $nav-total-offset;
 
-    background-color: var(--clr-primary);
+    background: linear-gradient(var(--clr-primary), var(--clr-primary-alt));
     color: var(--clr-fonts-white) !important;
     height: $nav-height;
     overflow: hidden;
