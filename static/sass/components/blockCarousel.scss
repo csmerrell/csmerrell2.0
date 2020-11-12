@@ -61,18 +61,34 @@
             }
         }
 
+        @media(max-width: 860px) {
+            .bc-block-content {
+                padding-top: 8em !important;
+            }
+
+            .fade-out-bottom {
+                top: calc(#{$block-height} - 16em);
+            }
+        }
+
         .bc-block-action-list {
+            position: absolute;
+            bottom: 3rem;
+            width: 100%;
+            text-align: center;
             .bc-block-action-container {
+                position: relative;
+                bottom: 0;
                 width: auto;
                 display: inline-block;
-                margin: 0 .5rem;
+                margin: .5rem;
             }
         }
 
         .bc-block-action-container {
-            width: 100%;
             position: absolute;
             bottom: 3rem;
+            width: 100%;
             text-align: center;
             z-index: 10;
 

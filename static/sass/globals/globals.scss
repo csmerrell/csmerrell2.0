@@ -26,8 +26,17 @@ code {
     border-radius: 2px;
 }
 
-[v-cloak] {
-    display: none;
+[v-cloak] > * { display:none }
+[v-cloak]::before { content: "loading…" }
+
+block-carousel[v-cloak]::before {
+    height: 42rem;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    background-color: var(--clr-bg-alt);
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
 a {
@@ -65,4 +74,11 @@ a {
 
 .hidden {
     display: none;
+}
+
+
+@media(max-width: 640px) {
+    .auto-hide-sm {
+        display: none;
+    }
 }

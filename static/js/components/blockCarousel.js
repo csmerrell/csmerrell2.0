@@ -76,9 +76,14 @@ export let BlockCarousel = Vue.component('block-carousel', {
                 isSelected: child.$data.isActive
             }
         });
+
+        setTimeout(() => {
+            //Wait for all children to mount before showing the parent component
+            this.$el.classList.remove("hidden");
+        }, 100)
     },
     template: /* html */`
-        <div class="bc-block-carousel pure-g">
+        <div class="bc-block-carousel pure-g hidden">
             <link href='/static/css/compiled/components/blockCarousel.css' rel="stylesheet" />
             <div class="bc-slide-trigger left-anchor" v-on:click="slidePrev">
                 <span class="fa fa-chevron-left"></span>
