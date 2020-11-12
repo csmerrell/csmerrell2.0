@@ -6,7 +6,8 @@ $font-size-sm: 14px;
 $font-size-std: 18px;
 $font-size-med: 24px;
 $font-size-med-plus: 28px;
-$font-size-lg: 36px;
+$font-size-lg: 38px;
+$font-size-lg-plus: 44px;
 $font-size-xl: 58px;
 
 $font-weight-thin: 300;
@@ -46,8 +47,21 @@ body {
     b {
         font-weight: $font-weight-bold;
     }
+    
+    @media(max-width: 640px) {
+        h1 {
+            font-size: $font-size-lg-plus;
+        }
+    }
+
+    @media(max-width: 408px) {
+        h1 {
+            font-size: $font-size-lg;
+        }
+    }
 }
 
 :root {
     font-size: $font-size-std;
 }
+

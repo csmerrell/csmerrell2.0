@@ -61,7 +61,7 @@
             }
         }
 
-        @media(max-width: 860px) {
+        @media(min-width: 641px) and (max-width: 860px) {
             .bc-block-content {
                 padding-top: 8em !important;
             }

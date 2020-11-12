@@ -44,6 +44,12 @@ $nav-total-offset: $nav-height;
         padding: .75rem 0 !important;
     }
 
+    @media(max-width: 640px) {
+        .brand {
+            padding-left: .25em !important;
+        }
+    }
+
     .pure-menu-item {
         height: 100%;
         :hover {
