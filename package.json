@@ -16,8 +16,6 @@
     "esm": "^3.2.25",
     "exphbs": "^1.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^5.2.0",
-    "express-hbs": "^2.3.4",
     "gulp": "^4.0.2",
     "gulp-footer": "^2.0.2",
     "gulp-header": "^2.0.9",

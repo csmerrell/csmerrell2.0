@@ -1,4 +1,4 @@
-<div id="app">
+<div id="vm-carousel">
     <block-carousel id="bc-samples" v-cloak>
         <block>
             <block-title>
@@ -30,11 +30,19 @@
     </block-carousel>
 </div>
 
+<div class="module-spacing"></div>
+
+<div id="vm-skill-search" class="pure-g">
+    <input type="text" v-model="filterStr" /> 
+    <filterable-tag class="pure-u-1 pure-u-sm-1-3 pure-u-md-1-4 pure-u-xl-1-6" :data-key="key" 
+        v-for="(skill, key) in skills" :data-item="skill" :filter-str="filterStr"></skill-tag>
+</div>
+
 <script type="module">
     import { BlockCarousel, Block } from "/static/js/components/blockCarousel.js";
 
     window.vms["vm-carousel"] = new Vue({
-        el: "#app",
+        el: "#vm-carousel",
         components: [ BlockCarousel, Block ],
         data: {
             codeSample1: `<div id="app">
@@ -110,6 +118,25 @@
         resolve();
     }
 },`
+        },
+    })
+</script>
+
+<script type="module">
+    import { skills } from "/static/js/localData/skills.js";
+    import { hashSkillArray, hashString, hashKeywordMap } from "/static/js/util/hasher.js";
+    import { FilterableTag } from "/static/js/components/filterableTag.js";
+
+    let hashedSkillMap = hashSkillArray(skills);
+    hashKeywordMap(hashedSkillMap);
+
+    window.vms["vm-skill-search"] = new Vue({
+        el: "#vm-skill-search",
+        components: [ FilterableTag ],
+        data: {
+            skills: hashedSkillMap,
+            filterStr: "",
+            activeFilter: null
         },
     })
 </script>
