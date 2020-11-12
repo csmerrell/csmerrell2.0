@@ -77,9 +77,8 @@ a {
 }
 
 body {
-    overflow: hidden;
+    overflow-x: hidden
 }
-
 
 @media(max-width: 568px) {
     .auto-hide-sm {
