@@ -15,7 +15,7 @@ export let skills = [
     },
     {
         shorthand: "Javascript",
-        logo: "javascriptLogo.jpg",
+        logo: "javascriptLogo.png",
         proficiency: "Fluent",
         years: 6,
         keywords: ["web", "javascript", "frontend", "client"]
@@ -30,14 +30,14 @@ export let skills = [
     {
         shorthand: "ReactJS",
         logo: "reactLogo.png",
-        proficiency: "Rusty",
+        proficiency: "Rusty (2016)",
         years: 1,
         keywords: ["react", "reactjs", "web", "modern", "javascript", "framework", "components", "databind", "databinding", "frontend", "client", "ui", "ux", "ui/ux", "modular", "module"]
     },
     {
         shorthand: "AngularJS",
         logo: "angularLogo.svg",
-        proficiency: "Rusty (v1.0)",
+        proficiency: "Rusty (2017 - v1.0)",
         years: 2,
         keywords: ["angular", "angularjs", "web", "modern", "javascript", "framework", "components", "databind", "databinding", "frontend", "client", "module", "modular", "ui", "ux", "ui/ux"]
     },
@@ -64,14 +64,14 @@ export let skills = [
     },
     {
         shorthand: "ExpressJS",
-        logo: "expressLogo.png",
+        logo: "expressNodeLogo.png",
         proficiency: "Novice",
         years: 1,
         keywords: ["express", "expressjs", "backend", "server", "mean", "mean stack"]
     },
     {
         shorthand: "NodeJS",
-        logo: "nodeLogo.svg",
+        logo: "expressNodeLogo.png",
         proficiency: "Capable",
         years: 1,
         keywords: ["node", "nodejs", "mean", "mean stack", "backend", "server", "api", "rest"]
@@ -99,21 +99,21 @@ export let skills = [
     },
     {
         shorthand: "Agile & Scrum",
-        logo: null,
+        logo: "scrumLogo.png",
         proficiency: "Strong",
         years: 3,
         keywords: ["agile", "process", "scrum", "collaboration", "collaborate", "collaborative"]
     },
     {
-        shorthand: "Peer Reviews & Collaborative Practices",
-        logo: null,
+        shorthand: "Peer Reviews",
+        logo: "reviewLogo.png",
         proficiency: "Strong",
         years: 3,
         keywords: ["review", "peer"]
     },
     {
         shorthand: "UI/UX Design",
-        logo: null,
+        logo: "uxLogo.png",
         proficiency: "Strong",
         years: 5,
         keywords: ["ui", "ux", "ui/ux", "design", "layout", "layouts", "web", "frontend", "client"]
@@ -121,6 +121,7 @@ export let skills = [
     {
         shorthand: "Responsive Design",
         logo: null,
+        altIcon: "fa-expand-alt",
         proficiency: "Capable",
         years: 4,
         keywords: ["responsive", "mobile", "design", "web", "frontend", "client", "ui", "ux", "ui/ux"]
@@ -148,28 +149,22 @@ export let skills = [
     },
     {
         shorthand: "JQuery",
-        logo: null,
+        logo: "jqueryLogo.png",
         proficiency: "Fluent",
         years: 5,
         keywords: ["web", "frontend", "client", "jquery", "javascript", "$"]
     },
     {
         shorthand: "Underscore/Lodash",
-        logo: null,
+        logo: "lodashLogo.png",
         proficiency: "Capable",
         years: 1,
         keywords: ["web", "frontend", "client", "javascript"]
     },
     {
-        shorthand: "Event Driven Programming",
-        logo: null,
-        proficiency: "Strong",
-        years: 5,
-        keywords: ["web", "frontend", "client", "event", "promise", "promises", "callback", "callbacks"]
-    },
-    {
         shorthand: "Promises",
         logo: null,
+        altIcon: "fa-handshake",
         proficiency: "Capable",
         years: 2,
         keywords: ["web", "frontend", "client", "event", "promise", "promises", "callback", "callbacks"]
@@ -177,34 +172,35 @@ export let skills = [
     {
         shorthand: "Callbacks",
         logo: null,
+        altIcon: "fa-directions",
         proficiency: "Strong",
         years: 5,
         keywords: ["web", "frontend", "client", "event", "promise", "promises", "callback", "callbacks"]
     },
     {
         shorthand: "Object Oriented Design",
-        logo: null,
+        logo: "oopLogo.png",
         proficiency: "Strong",
         years: 5,
         keywords: ["c#", "csharp", "java", "typescript", "object", "object oriented", "ood", "class"]
     },
     {
         shorthand: "Java",
-        logo: null,
+        logo: "javaLogo.png",
         proficiency: "Fluent",
         years: 3,
         keywords: ["csharp", "c#", "java", "object", "object oriented", "object oriented design", "ood", "class"]
     },
     {
         shorthand: "Web Components",
-        logo: null,
+        logo: "componentLogo.png",
         proficiency: "Strong",
         years: 5,
         keywords: ["component", "components", "web", "frontend", "client", "design", "ui", "ux", "ui/ux", "modular", "module"]
     },
     {
-        shorthand: "Writing API Specifications",
-        logo: null,
+        shorthand: "API Documentation",
+        logo: "apiLogo.svg",
         proficiency: "Capable",
         years: 2,
         keywords: []

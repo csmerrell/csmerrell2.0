@@ -1,4 +1,6 @@
 <div id="vm-carousel">
+    <link href='/static/css/compiled/components/blockCarousel.css' rel="stylesheet" />
+
     <block-carousel id="bc-samples" v-cloak>
         <block>
             <block-title>
@@ -32,10 +34,20 @@
 
 <div class="module-spacing"></div>
 
-<div id="vm-skill-search" class="pure-g">
-    <input type="text" v-on:keyup="updateFilter"/> 
-    <filterable-tag class="pure-u-1 pure-u-sm-1-3 pure-u-md-1-4 pure-u-xl-1-6" :data-key="key" 
-        v-for="(skill, key) in skills" :data-item="skill" :filter-str="filterStr"></skill-tag>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-sm-1-24 pure-u-lg-1-12 pure-u-xl-1-6"></div>
+    <div class="pure-u-1 pure-u-sm-11-12 pure-u-lg-5-6 pure-u-xl-2-3">
+        <link href="static/css/compiled/components/filterableTag.css" rel="stylesheet" />
+
+        <div id="vm-skill-search">
+            <input type="text" class="skills-input" v-on:keyup="updateFilter"/>
+            <div class="skill-list pure-g">
+                <filterable-tag class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3" :data-key="key" 
+                    v-for="(skill, key) in skills" :data-item="skill" :filter-str="filterStr"></skill-tag>
+            </div> 
+        </div>
+    </div>
+    <div class="pure-u-1 pure-u-sm-1-24 pure-u-lg-1-12 pure-u-xl-1-6"></div>
 </div>
 
 <script type="module">

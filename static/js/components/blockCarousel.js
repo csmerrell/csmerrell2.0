@@ -84,7 +84,6 @@ export let BlockCarousel = Vue.component('block-carousel', {
     },
     template: /* html */`
         <div class="bc-block-carousel pure-g hidden">
-            <link href='/static/css/compiled/components/blockCarousel.css' rel="stylesheet" />
             <div class="bc-slide-trigger left-anchor" v-on:click="slidePrev">
                 <span class="fa fa-chevron-left"></span>
             </div>

@@ -36,9 +36,9 @@ export let FilterableTag = Vue.component('filterable-tag', {
             this.isVisible = false;
 
             //An instant match against the hashes wasn't found. Execute a 'starts with' matching search that may take longer.
-            //For big datasets, this would ideally move to the server as an asynchronous, cancellable function.
+            //For big datasets, this would ideally move to the server as an asynchronous, cancellable function and results would iteratively load in as they are found
             for(var kw of this.dataItem.keywords) {
-                if(kw.startsWith(this.filterStr)) {
+                if(kw.toLowerCase().startsWith(this.filterStr.toLowerCase())) {
                     //A 'starts with' match was found
                     this.isVisible = true;
                     return;
@@ -46,27 +46,18 @@ export let FilterableTag = Vue.component('filterable-tag', {
             };
         },
     },
-    methods: {
-        checkKeywordArray: async function() {
-            for(var kw of this.dataItem.keywords) {
-                if(kw.indexOf(this.filterStr) >= 0) {
-                    //A substring, or 'contains' match was found
-                    this.isVisible = true;
-                    return;
-                }
-            }
-
-            return;
-        }
-    },
     mounted: function() {
         this.hash = parseInt(this.dataKey);
     },
     template: /* html */`
-        <div class="ft-tag" v-show="isVisible">
-            <link href="static/css/compiled/components/filterableTag.css" rel="stylesheet" />
-            <img class="ft-tag-img" v-if="dataItem.logo" :src="'/static/img/logos/' + dataItem.logo" />
-            {{dataItem.shorthand}}
+        <div class="ft-tag-container">
+            <div class="ft-tag" v-show="isVisible">
+                <div class="ft-logo-block">
+                    <img class="ft-tag-img" v-if="dataItem.logo" :src="'/static/img/logos/' + dataItem.logo" />
+                    <span class="ft-alt-icon fa" :class="dataItem.altIcon" v-if="!dataItem.logo"></span>
+                </div>
+                {{dataItem.shorthand}}
+            </div>
         </div>
     `
 })
