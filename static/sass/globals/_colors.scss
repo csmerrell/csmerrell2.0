@@ -4,7 +4,7 @@
         Non-dynamic. 
         These stay static regardless of selected theme. 
     */
-    --clr-fonts-white: #dfdfdf;
+    --clr-fonts-white: #fcfcfc;
     --clr-fonts-white-alt: #b0b0b0;
     --clr-fonts-white-active: #909090;
     --clr-fonts-white-inactive: #606060;
@@ -18,6 +18,7 @@
     --clr-dk-base: #2f2f2f;
     --clr-dk-lighter: #4d4d4d;
     --clr-dk-alt: #221f1f;
+    --clr-dk-input: #3a3a3a;
     --clr-dk-border: #4f4f4f;
 
     --clr-dk-primary: #ffb3e6;
@@ -34,6 +35,7 @@
     /* LIGHT theme colors */
     --clr-lt-base: #ffffff;
     --clr-lt-alt: #f6f6f6;
+    --clr-lt-input: #f3f3f3;
     --clr-lt-border: #bfbfbf;
 
     --clr-lt-primary: #ff80d5;
@@ -55,6 +57,7 @@
     --clr-bg: var(--clr-dk-base);
     --clr-bg-alt: var(--clr-dk-alt);
     --clr-bg-lighter: var(--clr-dk-lighter);
+    --clr-bg-input: var(--clr-dk-input);
     --clr-border: var(--clr-dk-border);
 
     --clr-fonts-base: var(--clr-fonts-white);
@@ -78,6 +81,7 @@
     --clr-bg: var(--clr-dk-base);
     --clr-bg-alt: var(--clr-dk-alt);
     --clr-bg-lighter: var(--clr-dk-lighter);
+    --clr-bg-input: var(--clr-dk-input);
     --clr-border: var(--clr-dk-border);    
 
     --clr-fonts-base: var(--clr-fonts-white);
@@ -101,6 +105,7 @@
     --clr-bg: var(--clr-lt-base);
     --clr-bg-alt: var(--clr-lt-alt);
     --clr-bg-lighter: var(--clr-lt-lighter);
+    --clr-bg-input: var(--clr-lt-input);
     --clr-border: var(--clr-lt-border);        
 
     --clr-fonts-base: var(--clr-fonts-black);

@@ -1,45 +1,52 @@
-.ft-tag-container {
-    .ft-tag {
-        position: relative;
-        border: 1px solid var(--clr-border);
-        border-radius: 2px;
-        box-sizing: border-box;
-        height: 4.1rem;
+.ft-container {
+    box-sizing: border-box;
+    border: 1px solid var(--clr-border);
+    background-color: var(--clr-bg-input);
 
-        .ft-logo-block {
-            position: relative;
-            display: inline-block;
-            height: 3.5rem;
-            width: 4rem;
-            padding: .25rem;
-            box-sizing: content-box;
-            border-right: 1px solid var(--clr-border);
-            
-            .ft-tag-img, .ft-alt-icon {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                max-height: 3rem;
-                max-width: 4rem;
+    .ft-shorthand {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .ft-ico-block {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: 1px solid var(--clr-border);
+        height: 4rem;
+        width: 8rem;
+
+        .ft-ico {
+            font-size: 3rem;
+            color: var(--clr-accent);
+        }
+
+        .ft-img {
+            max-height: 3rem;
+            max-width: 3rem;
+
+            &[alt] {
+                font-size: .65rem;
             }
-    
-            .ft-alt-icon.fa {
-                font-size: 2rem;
-                color: var(--clr-accent); 
-            }    
         }
     }
-}
 
-:root[theme='dark'] {
-    .ft-tag {
-        background-color: #3a3a3a;
+    .ft-label-block, .ft-details-block {
+        display: inline-block;
+        font-size: 1.25rem;
+        padding: 0 1rem;
+        width: 100%;
     }
-}
 
-:root[theme='light'] {
-    .ft-tag {
-        background-color: #f3f3f3;
+    .ft-full {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .ft-ico-block {
+            border-right: none;
+        }
     }
 }

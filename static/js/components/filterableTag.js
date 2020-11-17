@@ -1,62 +1,97 @@
-import { hashString } from "/static/js/util/hasher.js";
-
 export let FilterableTag = Vue.component('filterable-tag', {
     data: function() {
         return {
-            hash: -1,
             isVisible: true,
+            isExpanded: false,
         }
     },
     props: {
-        dataKey: Number,
+        dataKey: String,
         dataItem: Object,
-        filterStr: String
+        filterStr: String,
+        onToggle: Function,
+        onFilter: Function
     },
     watch: {
         filterStr: function() {
-            let filterHash = hashString(this.filterStr);
-            if(this.hash == filterHash || this.dataItem.keywordMap[filterHash]) {
-                //A matching hash was found. Check to be sure it's an actual match
-                if(this.dataItem.shorthand == this.filterStr) {
-                    //exact match!
+            let testFilter = new Promise((resolve) => {
+                if(this.dataKey.toLowerCase() == this.filterStr.toLowerCase() || this.dataItem.keywordMap[this.filterStr.toLowerCase()]) {
+                    //A matching hash was found. Check to be sure it's an actual match
                     this.isVisible = true;
+                    resolve();
                     return;
                 }
+    
+                this.isVisible = false;
+    
+                //An instant match against the hashes wasn't found. Execute a 'starts with' matching search that may take longer.
+                //For big datasets, this would ideally move to the server as an asynchronous, cancellable function and results would iteratively load in as they are found
+                for(var kw of this.dataItem.keywords) {
+                    if(kw.toLowerCase().startsWith(this.filterStr.toLowerCase())) {
+                        //A 'starts with' match was found
+                        this.isVisible = true;
+                        resolve();
+                        return;
+                    }    
+                };
 
-                let keywordIdx = this.dataItem.keywords.findIndex((kw) => {
-                    return kw == this.filterStr;
-                });
-                if(keywordIdx >= 0) {
-                    //matched one of the keywords successfully
-                    this.isVisible = true;
-                    return;
+                resolve();
+            }).then(() => {
+                if(this.onFilter) {
+                    this.onFilter(this);
                 }
-            }
-
-            this.isVisible = false;
-
-            //An instant match against the hashes wasn't found. Execute a 'starts with' matching search that may take longer.
-            //For big datasets, this would ideally move to the server as an asynchronous, cancellable function and results would iteratively load in as they are found
-            for(var kw of this.dataItem.keywords) {
-                if(kw.toLowerCase().startsWith(this.filterStr.toLowerCase())) {
-                    //A 'starts with' match was found
-                    this.isVisible = true;
-                    return;
-                }    
-            };
+            })
         },
     },
-    mounted: function() {
-        this.hash = parseInt(this.dataKey);
+    methods: {
+        toggleView: function() {
+            //TODO: Convert these to detailed views
+            // this.isExpanded = !this.isExpanded;
+            // this.ontoggle(this);
+        }
     },
     template: /* html */`
-        <div class="ft-tag-container">
-            <div class="ft-tag" v-show="isVisible">
-                <div class="ft-logo-block">
-                    <img class="ft-tag-img" v-if="dataItem.logo" :src="'/static/img/logos/' + dataItem.logo" />
-                    <span class="ft-alt-icon fa" :class="dataItem.altIcon" v-if="!dataItem.logo"></span>
-                </div>
+        <div :id="'ft-' + dataKey" class="ft-container" v-on:click="toggleView">
+            <shorthand-ft-tag v-if="!isExpanded" :data-item="dataItem"></shorthand-ft-tag>
+            <full-ft-tag v-else :data-item="dataItem"></full-ft-tag>
+        </div>
+    `
+})
+
+export let ShorthandTag = Vue.component('shorthand-ft-tag', {
+    props: {
+        dataItem: Object,
+    },
+    template: /* html */`
+        <div class="ft-shorthand">
+            <div class="ft-ico-block">
+                <img class="ft-img" :alt="dataItem.shorthand + ' logo'" v-if="dataItem.logo" :src="'/static/img/logos/' + dataItem.logo" />
+                <span class="ft-ico fa" :class="dataItem.altIcon" v-if="!dataItem.logo"></span>
+            </div>
+            <div class="ft-label-block">
                 {{dataItem.shorthand}}
+            </div>
+        </div>
+    `
+})
+
+export let FullTag = Vue.component('full-ft-tag', {
+    props: {
+        dataItem: Object,
+    },
+    template: /* html */`
+        <div class="ft-full">
+            <div class="ft-ico-block">
+                <img class="ft-img" :alt="dataItem.shorthand + ' logo'" v-if="dataItem.logo" :src="'/static/img/logos/' + dataItem.logo" />
+                <span class="ft-ico fa" :class="dataItem.altIcon" v-if="!dataItem.logo"></span>
+            </div>
+            <div class="ft-details-block">
+                <ul>
+                    <li>{{dataItem.shorthand}}</li>
+                    <li>Years: {{dataItem.years}}</li>
+                    <li>Proficiency: {{dataItem.proficiency}}</li>
+                    <li>Notes:</li>
+                </ul>
             </div>
         </div>
     `
