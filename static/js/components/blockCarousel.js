@@ -229,16 +229,21 @@ export let BlockActionList = Vue.component('block-action-list', {
 export let BlockAction = Vue.component('block-action', {
     props: {
         href: String,
-        action: Function
+        action: Function,
+        target: String
     },
     methods: {
         performAction: function() {
             if(this.href) {
-                window.location = this.href;
+                if(this.target == "_blank") {
+                    window.open(this.href)
+                } else {
+                    window.location = this.href;
+                }
             } else if(this.action) {
                 this.action();
             }
-        }
+        },
     },
     template: /* html */`
         <div class="bc-block-action-container">

@@ -7,30 +7,42 @@
         <block-carousel id="bc-samples" v-cloak>
             <block>
                 <block-title>
-                    Demo: Carousel Component (Vue)
+                    Demo: Carousel Component
                 </block-title>
                 <block-content>
                     <highlightjs autodetect :code="codeSample1" />                
                 </block-content>
                 <block-action-list>
-                    <block-action href="samples/carousel">
-                        Sample: Block Carousel
-                    </block-action>
-                    <block-action href="samples/tagfilter">
-                        Sample: Tag Filterview
-                    </block-action>
-                    <block-action href="samples/codetabs">
-                        Sample: Code Tabs
+                    <block-action href="docs/BlockCarousel" target="_blank">
+                        View Documentation
                     </block-action>
                 </block-action-list>
             </block>
             <block>
                 <block-title>
-                    Event-driven UX
+                    Demo: Tag Filterview
                 </block-title>
                 <block-content>
                     <highlightjs autodetect :code="codeSample2" />                
                 </block-content>
+                <block-action-list>
+                    <block-action href="docs/TagFilterview" target="_blank">
+                        View Documentation
+                    </block-action>
+                </block-action-list>
+            </block>
+            <block>
+                <block-title>
+                    Demo: Theme Selector
+                </block-title>
+                <block-content>
+                    <highlightjs autodetect :code="codeSample2" />                
+                </block-content>
+                <block-action-list>
+                    <block-action href="docs/ThemeSelector" target="_blank">
+                        View Documentation
+                    </block-action>
+                </block-action-list>
             </block>
         </block-carousel>
     </div>
@@ -49,8 +61,13 @@
             </div>
             <div class="skill-list pure-g">
                 <div class="skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" v-for="(skill, key) in skills">
-                    <filterable-tag :data-key="key" :data-item="skill" :filter-str="filterStr" :on-toggle="adjustSizing" :on-filter="setVisibility"></skill-tag>                    
+                    <filterable-tag :data-key="key" :data-item="skill" :filter-str="filterStr" :on-toggle="adjustSizing" 
+                        :on-filter="setVisibility"></filterable-tag>
                 </div>
+                <div class="fade-tags skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" v-for="tag in fadeTags">
+                    <filterable-tag data-key="empty" data-item="{}" filter-str=""></filterable-tag>
+                </div>
+                <div class="fade-out" v-if="hasNoFilters()"></div>
             </div> 
         </div>
         <div class="pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6"></div>
@@ -86,6 +103,7 @@
         components: [ FilterableTag ],
         data: {
             skills: skillMap,
+            fadeTags: [{},{},{},{}],
             filterStr: "",
             activeFilter: null
         },
@@ -114,6 +132,9 @@
                 } else {
                     e.$el.parentElement.classList.add("hidden");
                 }
+            },
+            hasNoFilters: function() {
+                return this.filterStr == "";
             }
         },
         created: function() {

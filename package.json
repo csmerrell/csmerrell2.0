@@ -6,7 +6,7 @@
   "scripts": {
     "start": "gulp sass && gulp markdown && node -r esm app.js",
     "debug": "node inspect -r esm app.js",
-    "dev": "nodemon -r esm app.js"
+    "dev": "node -r esm app.js"
   },
   "keywords": [],
   "author": "",

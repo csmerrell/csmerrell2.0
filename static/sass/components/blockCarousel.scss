@@ -95,6 +95,15 @@
             .bc-block-action {
                 font-size: $font-size-med;
                 box-shadow: 0 0 1rem var(--clr-bg-alt);
+
+                a {
+                    color: var(--clr-fonts-base);
+                    text-decoration: none;
+
+                    &:hover {
+                        color: var(--clr-fonts-base);
+                    }
+                }
             }
         }
 

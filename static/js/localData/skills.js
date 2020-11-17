@@ -1,3 +1,5 @@
+//A non-comprehensive list of libraries and skills I engage with regularly in a professional capacity.
+
 export let skills = [
     {
         shorthand: "HTML",
