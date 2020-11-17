@@ -119,7 +119,9 @@
                 }
 
                 .statement {
-                    width: 100%;
+                    width: -webkit-fill-available;
+                    width: -moz-fill-available;
+                    text-align: justify;
                 }
             }
 
