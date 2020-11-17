@@ -107,6 +107,22 @@
                 }    
             }
 
+            @media(max-width: 800px) {
+                .blurb-box {
+                    display: block;
+                    width: 100%;
+                }
+
+                .profile-box {
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                .statement {
+                    width: 100%;
+                }
+            }
+
             .alma-mater {
                 position: absolute;
                 right: 2rem;
