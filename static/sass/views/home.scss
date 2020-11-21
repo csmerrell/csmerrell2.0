@@ -97,6 +97,7 @@
                 .statement {
                     display: inline-block;
                     padding: 1rem;
+                    text-align: justify;
         
                     p {
                         font-weight: 300;
@@ -121,26 +122,69 @@
                 .statement {
                     width: -webkit-fill-available;
                     width: -moz-fill-available;
-                    text-align: justify;
                 }
             }
 
-            .alma-mater {
-                position: absolute;
-                right: 2rem;
-                display: inline-block;
-
-                .alma-logo {
-                    flex-grow: 0;
-                    max-height: 4rem;
-                    padding-bottom: 1rem;
-                    border-bottom: 1px solid var(--clr-border);
+            @media(max-width: 440px) {
+                .statement {
+                    padding: 1rem 0 !important;
                 }
-                
-                .alumnus-text {
-                    margin: .1rem;
-                    text-align: center;
-                    font-size: .78rem;
+            }
+
+            .experience-logos {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                .logo {
+                    padding: .5rem;
+                    padding-bottom: 2rem;
+
+                    &:last-of-type {
+                        padding-bottom: 0;
+                    }
+                }
+
+                .employer-navair {
+                    display: inline-block;
+    
+                    .navair-logo {
+                        flex-grow: 0;
+                        max-height: 4rem;
+                        padding-bottom: 1rem;
+                        border-bottom: 1px solid var(--clr-border);
+                    }
+                    
+                    .employer-text {
+                        margin: .1rem;
+                        text-align: center;
+                        font-size: .72rem;
+                    }
+                }
+    
+                .alma-mater {
+                    display: inline-block;
+    
+                    .alma-logo {
+                        flex-grow: 0;
+                        max-height: 4rem;
+                        padding-bottom: 1rem;
+                        border-bottom: 1px solid var(--clr-border);
+                    }
+                    
+                    .alumnus-text {
+                        margin: .1rem;
+                        text-align: center;
+                        font-size: .68rem;
+                    }
+                }    
+            }
+
+            @media(max-width: 800px) {
+                .experience-logos {
+                    justify-content: space-around;
                 }
             }
         }
@@ -240,14 +284,18 @@
 }
 
 :root[theme='dark'] {
-    #home .alma-logo.light {
-        display: none;
+    #home {
+        .alma-logo.light, .navair-logo.light {
+            display: none;
+        }
     }
 }
 
 :root[theme='light'] {
-    #home .alma-logo.dark {
-        display: none;
+    #home {
+        .alma-logo.dark, .navair-logo.dark {
+            display: none;
+        }
     }
 }
 
