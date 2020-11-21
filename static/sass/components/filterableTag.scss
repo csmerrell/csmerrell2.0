@@ -2,6 +2,7 @@
     box-sizing: border-box;
     border: 1px solid var(--clr-border);
     background-color: var(--clr-bg-input);
+    cursor: pointer;
 
     .ft-shorthand {
         display: flex;
@@ -48,5 +49,13 @@
         .ft-ico-block {
             border-right: none;
         }
+    }
+
+    &:hover {
+        background-color: var(--clr-bg-hover);
+    }
+
+    &:active {
+        background-color: var(--clr-bg-active);
     }
 }

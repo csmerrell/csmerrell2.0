@@ -1,0 +1,105 @@
+.loader {
+  &[data-pos='fixed'] {
+    position: fixed;
+
+    .lds-facebook {
+      top: 40%;
+      left: 50%;
+      transform: translate(-40%, -50%);
+    }
+
+    .overlay {
+      position: fixed;
+    }
+  }
+
+  &[data-pos='absolute'] {
+    position: absolute;
+
+    .lds-facebook {
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .overlay {
+      position: absolute;
+    }
+  }
+
+  &[data-pos='fixed'], &[data-pos='absolute'], .overlay {
+    height: 100%;
+    width: 100%;
+  }
+
+  &[data-opacity='solid'] {
+    .overlay {
+      opacity: 1;
+    }
+  }
+
+  &[data-opacity='transparent'] {
+    .overlay {
+      opacity: .4;
+    }
+  }
+
+  &[data-opacity='solid'], &[data-opacity="transparent"] {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  
+    .overlay {
+      background-color: var(--clr-bg);
+      z-index: 10000;  
+    }
+
+    & ~ .lds-facebook {
+      z-index: 10001;
+    }
+  }
+}
+
+/* 
+    Facebook style loader with 3 pulsing bars
+    Source: https://loading.io/css/ 
+*/
+
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: var(--clr-bg-active);
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%,
+  100% {
+    top: 24px;
+    height: 32px;
+  }
+}

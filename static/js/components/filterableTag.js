@@ -48,10 +48,16 @@ export let FilterableTag = Vue.component('filterable-tag', {
             //TODO: Convert these to detailed views
             // this.isExpanded = !this.isExpanded;
             // this.ontoggle(this);
+        },
+        openUrl: function() {
+            //Until skill detailed views are implemented, make the tags serve as anchors to a homepage for the library/concept
+            if(this.dataItem.url) {
+                window.open(this.dataItem.url, '_blank');
+            }
         }
     },
     template: /* html */`
-        <div :id="'ft-' + dataKey" class="ft-container" v-on:click="toggleView">
+        <div :id="'ft-' + dataKey" class="ft-container" v-on:click="openUrl">
             <shorthand-ft-tag v-if="!isExpanded" :data-item="dataItem"></shorthand-ft-tag>
             <full-ft-tag v-else :data-item="dataItem"></full-ft-tag>
         </div>

@@ -203,15 +203,14 @@ export let BlockContent = Vue.component('block-content', {
 
     },
     template: /* html */`
-        <div class="bc-block-content pure-g">
+        <div class="bc-block-content pure-g  fade-container">
             <div class="pure-u-xs-1-24 pure-u-md-1-12 pure-u-lg-1-8 pure-u-xl-1-4"></div>
-            <div class="pure-u-1 pure-u-xs-11-12 pure-u-md-5-6 pure-u-lf-3-4 pure-u-xl-1-2 fade-container">
+            <div class="code-slot pure-u-1 pure-u-xs-11-12 pure-u-md-5-6 pure-u-lf-3-4 pure-u-xl-1-2">
                 <slot>
                 </slot>
-                <div class="fade-out-bottom"></div>
-                <div class="fade-out-right"></div>
             </div>
             <div class="pure-u-sm-1-24 pure-u-md-1-12 pure-u-lg-1-8 pure-u-xl-1-4"></div>
+            <div class="fade-out-bottom"></div>
         </div>
     `
 })

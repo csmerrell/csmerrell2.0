@@ -1,4 +1,4 @@
-<div id="home">
+<div id="home" style="display: none;">
     <link href="/static/css/compiled/views/home.css" rel="stylesheet" />
     <div id="vm-intro" class="about-me">
         <div class="pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6"></div>
@@ -108,15 +108,24 @@
                     <filterable-tag :data-key="key" :data-item="skill" :filter-str="filterStr" :on-toggle="adjustSizing" 
                         :on-filter="setVisibility"></filterable-tag>
                 </div>
-                <div class="fade-tags skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" v-for="tag in fadeTags">
+                <div class="fade-tags skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" v-for="tag in fadeTags" v-if="hasNoFilters()">
                     <filterable-tag data-key="empty" data-item="{}" filter-str=""></filterable-tag>
                 </div>
                 <div class="fade-out" v-if="hasNoFilters()"></div>
+                {{> loaders/centerAdjusted loaderId="skill-loader" pos="absolute" opacity="transparent" }}
             </div> 
         </div>
         <div class="pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6"></div>
     </div>
 </div>
+{{> loaders/centerAdjusted loaderId="main-loader" pos="fixed" opacity="opaque"}}
+
+<!-- Loader binding -->
+<script>
+    window.homeEl = document.getElementById("home");
+    window.mainLoaderEl = document.getElementById("main-loader");
+    window.mainLoaderEl.style.display = 'block';
+</script>
 
 <!-- Block Carousel vm mounting and data config -->
 <script type="module">
@@ -130,6 +139,12 @@
             codeSample1: CodeSample1,
             codeSample2: CodeSample2
         },
+        mounted: function() {
+            setTimeout(() => {
+                window.mainLoaderEl.style.display ="none";
+                window.homeEl.style.display = "block";
+            }, 1000)
+        }
     })
 </script>
 
@@ -153,7 +168,15 @@
         },
         methods: {
             updateFilter: function(e) {
+                let skillLoader = document.getElementById('skill-loader');
+                skillLoader.style.display = 'block';
+
                 this.filterStr = e.target.value;
+
+                //TODO - Refactor this to await resolution of a promise tied to all the skill filter processes.
+                setTimeout(() => {
+                    skillLoader.style.display = "none";
+                }, 500)
             },
             adjustSizing: function(e) {
                 //NOTE - Function never fires with expandable skill tags disabled.
