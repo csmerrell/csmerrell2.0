@@ -80,7 +80,7 @@
                     Demo: Theme Selector
                 </block-title>
                 <block-content>
-                    <highlightjs autodetect :code="codeSample2" />                
+                    <highlightjs autodetect :code="codeSample3" />                
                 </block-content>
                 <block-action-list>
                     <block-action href="docs/ThemeSelector" target="_blank">
@@ -130,14 +130,15 @@
 <!-- Block Carousel vm mounting and data config -->
 <script type="module">
     import { BlockCarousel, Block } from "/static/js/components/blockCarousel.js";
-    import { CodeSample1, CodeSample2 } from "/static/js/localData/codeSamples.js";
+    import { CodeSample1, CodeSample2, CodeSample3 } from "/static/js/localData/codeSamples.js";
 
     window.vms["vm-carousel"] = new Vue({
         el: "#vm-carousel",
         components: [ BlockCarousel, Block ],
         data: {
             codeSample1: CodeSample1,
-            codeSample2: CodeSample2
+            codeSample2: CodeSample2,
+            codeSample3: CodeSample3
         },
         mounted: function() {
             setTimeout(() => {
@@ -205,7 +206,7 @@
             }
         },
         created: function() {
-            this.updateFilter = _.debounce(this.updateFilter, 200);
+            this.updateFilter = _.debounce(this.updateFilter, 500);
         },
         mounted: function() {
             setTimeout(() => {

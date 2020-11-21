@@ -2,16 +2,19 @@ export let FilterableTag = Vue.component('filterable-tag', {
     data: function() {
         return {
             isVisible: true,
-            isExpanded: false,
         }
     },
     props: {
         dataKey: String,
         dataItem: Object,
         filterStr: String,
-        onToggle: Function,
         onFilter: Function
     },
+    template: /* html */`
+        <div :id="'ft-' + dataKey" class="ft-container" v-on:click="openUrl">
+            <shorthand-ft-tag :data-item="dataItem"></shorthand-ft-tag>
+        </div>
+    `,
     watch: {
         filterStr: function() {
             let testFilter = new Promise((resolve) => {
@@ -56,12 +59,6 @@ export let FilterableTag = Vue.component('filterable-tag', {
             }
         }
     },
-    template: /* html */`
-        <div :id="'ft-' + dataKey" class="ft-container" v-on:click="openUrl">
-            <shorthand-ft-tag v-if="!isExpanded" :data-item="dataItem"></shorthand-ft-tag>
-            <full-ft-tag v-else :data-item="dataItem"></full-ft-tag>
-        </div>
-    `
 })
 
 export let ShorthandTag = Vue.component('shorthand-ft-tag', {
