@@ -36,9 +36,6 @@ app.use('/', viewController);
 //Static (js, lib, css, img, util, etc)
 app.use('/static', express.static('static'));
 
-//Favicon
-app.use('/favicon.ico', express.static('static/img/favicon.ico'));
-
 app.set('port', (process.env.PORT || 5000));
 
 var server = app.listen(app.get('port'), () => {
