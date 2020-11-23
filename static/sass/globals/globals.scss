@@ -57,6 +57,24 @@ a {
     }
 }
 
+:root[theme='dark'] {
+    a {
+        color: var(--clr-dk-primary-alt);
+
+        &:hover {
+            color: var(--clr-accent-alt);
+        }
+    
+        &:active {
+            color: var(--clr-accent-active);
+        }
+    
+        &:visited {
+            color: var(--clr-accent-inactive);
+        }    
+    }
+}
+
 .pure-button {
     background-color: var(--clr-accent);
     color: var(--clr-accent-font);
@@ -73,6 +91,11 @@ a {
         background-color: var(--clr-accent-inactive);
     }
 }
+
+.align-right {
+    text-align: right;
+}
+
 
 .hidden {
     display: none;

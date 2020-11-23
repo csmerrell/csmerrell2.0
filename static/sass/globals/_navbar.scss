@@ -5,21 +5,6 @@
 $nav-height: 3.25rem;
 $nav-total-offset: $nav-height;
 
-.nav-row {
-    width: 100%;
-    display: inline-block;
-}
-@media(max-width: 1023px) { 
-    .nav-row {
-        width: 100%;
-    }
-}
-@media(min-width: 1600px) {
-    .nav-row {
-        width: calc(100% - 2rem);
-    }
-}
-
 .navbar {
     @include pure-full-height;
     height: $nav-total-offset;
@@ -33,122 +18,49 @@ $nav-total-offset: $nav-height;
     top: 0;
     left: 0;
     right: 0;
-    .nav-row {
-        position: absolute;
-    }
 
-    .brand {
-        max-height: 2.75rem;
-        padding: .25rem 3rem;
-    }
-
-    @media(max-width: 640px) {
-        .brand {
-            padding-left: .25em !important;
-        }
-    }
-
-    .pure-menu-item {
-        height: 100%;
-        :hover {
-            background: var(--clr-primary-hover);
-        }
-    }
-
-    .pure-menu-link {
-        padding: 1.4rem 1rem .6rem 1rem;
-        color: var(--clr-fonts-black) !important;
-    }
-    
-
-    @media (max-width: 1023px) {
-        .pure-menu-children {
-            padding-top: .5rem;
-            padding-left: 2rem;
-            border: none !important;
-        }
-    }
-
-    .pure-menu-heading {
-        padding: 1rem;
-
-        .low-caps {
-            font-size: $font-size-std;
-        }
-    }
-
-    .align-right {
-        text-align: right;
-    }
-
-    .div-bar {
-        display:none;
-    }
-
-    @media (max-width: 1023px) {
-        .div-bar {
-            display:block;
-            border-bottom: 1px solid var(--clr-div-border);
-            margin: .5rem 1rem;
-            width: 12rem;
-        }
-    }
-
-    .hamburger-btn {
-        $hamburger-height: 2rem;
-
-        margin: .5rem 1rem;
-        height: $hamburger-height;
-        width: 2rem;
-        position: relative;
-        display: none;
-        cursor: pointer;
-
-        .bar {
-            $bar-center: calc(#{$hamburger-height} / 2);
-            
-            background-color: var(--clr-lt-border);
-            display: block;
-            width: 1.5rem;
-            height: 2px;
-            position: absolute;
-            top: $bar-center;
-            right: .25rem;
-            -webkit-transition: all 0.5s;
-            -moz-transition: all 0.5s;
-            transition: all 0.5s;
-            &:first-child {
-                -webkit-transform: translateY(.25rem);
-                -moz-transform: translateY(.25rem);
-                -ms-transform: translateY(.25rem);
-                transform: translateY(.25rem);
-            }
-            &:nth-child(2) {
-                -webkit-transform: translateY(-.25rem);
-                -moz-transform: translateY(-.25rem);
-                -ms-transform: translateY(-.25rem);
-                transform: translateY(-.25rem);
-            }
-        }
-        &.x {
-            .bar {
-                -webkit-transform: rotate(-45deg);
-                -moz-transform: rotate(-45deg);
-                -ms-transform: rotate(-45deg);
-                transform: rotate(-45deg);
-                &:first-child {
-                    -webkit-transform: rotate(45deg);
-                    -moz-transform: rotate(45deg);
-                    -ms-transform: rotate(45deg);
-                    transform: rotate(45deg);
-                }
-            }
-        }
-    }
-    @media (max-width: 1023px) {
-        .hamburger-btn {
+    .nav-menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        
+        .nav-link {
             display: inline-block;
+            color: var(--clr-fonts-black) !important;
+            line-height: calc(1.25rem + 1px);
+            padding: 1rem;
+
+            &a, a {
+                color: unset !important;
+                text-decoration: none;
+            }
+
+            &:hover {
+                background-color: var(--clr-primary-alt);
+            }
         }
+
+        .brand {
+            padding: 0;
+            height: 100%;
+            vertical-align: middle;
+            
+            .logo {
+                max-height: 2.75rem;
+                margin: .25rem 3rem;
+            }
+    
+            &:hover {
+                background: transparent;
+            }
+        }
+    
+        @media(max-width: 640px) {
+            .brand .logo {
+                margin: .25rem 1rem;
+            }
+        }        
     }
 
     .theme-toggler {
@@ -193,13 +105,13 @@ $nav-total-offset: $nav-height;
 }
 
 :root[theme='dark'] {
-    .navbar .brand.blue {
+    .navbar .brand .logo.blue {
         display:none;
     }
 }
 
 :root[theme='light'] {
-    .navbar .brand.pink {
+    .navbar .brand .logo.pink {
         display:none;
     }
 }
