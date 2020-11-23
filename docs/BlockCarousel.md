@@ -72,7 +72,7 @@ It won't work yet, because we need a vue instance to manage it.
 </script>
 ```
 
-That's the basic instance. Not much use without some code samples to go inside the contents!
+That's the basic instance. It's not much use, though, without some code samples to go inside the contents.
 
 ## Binding Block Content
 The two blocks in the samples just have plain text in them, which doesn't pick up the carousel's styling properly. We can convert that to code:
