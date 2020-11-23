@@ -1,4 +1,166 @@
 {{!< docsHeader }}
-<h1 id="block-carousel-under-construction">Block Carousel (Under Construction)</h1>
-<p>A carousel widget/component written using <a href="https://vuejs.org">VueJS</a>. Cycles through code samples with links to the associated code&#39;s documentation.
- <br>NOTE: Documentation of this component is my next priority.</p>
+<h1 id="block-carousel-documentation-ongoing">Block Carousel (Documentation Ongoing)</h1>
+<p>A simple fading carousel <a href="https://vuejs.org">VueJS</a> component designed to showcase code samples.</p>
+<h2 id="usage">Usage</h2>
+<p>First, import the js and css files:</p>
+<pre><code class="language-html">&lt;link href=&quot;path/to/file.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;script src=&quot;path/to/file.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Alternatively, you can use the &quot;modularized&quot; version of the js file, which exports each component as a separate let:</p>
+<pre><code class="language-html">&lt;script type=&quot;module&quot;&gt;
+    import { BlockCarousel } from &quot;path/to/file.js&quot;;
+&lt;/script&gt;</code></pre>
+<p>Now add component elements to your body:</p>
+<pre><code class="language-html">&lt;block-carousel id=&quot;bc-samples&quot;&gt;
+    &lt;block&gt;
+        &lt;block-title&gt;
+            Demo: Hello World 1
+        &lt;/block-title&gt;
+        &lt;block-content&gt;
+            Hi!
+        &lt;/block-content&gt;
+        &lt;block-action-list&gt;
+            &lt;block-action href=&quot;/somenav&quot; target=&quot;_blank&quot;&gt;
+                Nav To somenav
+            &lt;/block-action&gt;
+        &lt;/block-action-list&gt;
+    &lt;/block&gt;
+    &lt;block&gt;
+        &lt;block-title&gt;
+            Demo: Hello World 2
+        &lt;/block-title&gt;
+        &lt;block-content&gt;
+            Hello!
+        &lt;/block-content&gt;
+        &lt;block-action-list&gt;
+            &lt;block-action&gt;
+                Execute myFunc
+            &lt;/block-action&gt;
+        &lt;/block-action-list&gt;
+    &lt;/block&gt;
+&lt;/block-carousel&gt;</code></pre>
+<p>It won&#39;t work yet, because we need a vue instance to manage it.</p>
+<pre><code class="language-html">&lt;div id=&quot;vm-carousel&quot;&gt;
+    &lt;block-carousel id=&quot;bc-samples&quot;&gt;
+        &lt;block&gt;
+            ...
+        &lt;/block&gt;
+        &lt;block&gt;
+            ...
+        &lt;/block&gt;
+    &lt;/block-carousel&gt;
+&lt;/div&gt;
+&lt;script type=&quot;module&quot;&gt;
+    import { BlockCarousel } from &quot;path/to/file.js&quot;;
+
+    let vm = new Vue({
+        el: &quot;#vm-carousel&quot;
+    })
+&lt;/script&gt;</code></pre>
+<p>That&#39;s the basic instance. Not much use without some code samples to go inside the contents!</p>
+<h2 id="binding-block-content">Binding Block Content</h2>
+<p>The two blocks in the samples just have plain text in them, which doesn&#39;t pick up the carousel&#39;s styling properly. We can convert that to code:</p>
+<pre><code class="language-html">&lt;block-carousel id=&quot;bc-samples&quot;&gt;
+    &lt;block&gt;
+        ...
+        &lt;block-content&gt;
+            &lt;pre&gt;
+                &lt;code&gt;
+                    &amp;lt;div&gt; Hello World! &amp;lt;/div&gt;
+                &lt;/code&gt;
+            &lt;/pre&gt;
+        &lt;/block-content&gt;
+        ...
+    &lt;/block&gt;
+    &lt;block&gt;
+        ...
+        &lt;block-content&gt;
+            &lt;pre&gt;
+                &lt;code&gt;
+                    &amp;lt;div&gt; Sample #2! &amp;lt;/div&gt;
+                &lt;/code&gt;
+            &lt;/pre&gt;
+        &lt;/block-content&gt;
+        ...
+    &lt;/block&gt;
+&lt;/block-carousel&gt;</code></pre>
+<p>Writing plain text code with escape characters is a pain. I recommend using the VueJS <code>highlightjs</code> plugin. Import it and use it right after you import VueJS:</p>
+<pre><code class="language-html">&lt;script src=&quot;//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/highlight.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    Vue.use(hljs.vuePlugin);
+&lt;/script&gt;</code></pre>
+<p>Now we can bind a string value to the block&#39;s contents:</p>
+<pre><code class="language-html">&lt;block-carousel id=&quot;bc-samples&quot;&gt;
+    &lt;block&gt;
+        ...
+        &lt;block-content&gt;
+            &lt;highlightjs autodetect :code=&quot;sample1&quot;&gt;
+        &lt;/block-content&gt;
+        ...
+    &lt;/block&gt;
+    &lt;block&gt;
+        ...
+        &lt;block-content&gt;
+            &lt;highlightjs language=&quot;javascript&quot; :code=&quot;sample2&quot;&gt;
+        &lt;/block-content&gt;
+        ...
+    &lt;/block&gt;
+&lt;/block-carousel&gt;
+&lt;script type=&quot;module&quot;&gt;
+    import { BlockCarousel } from &quot;path/to/file.js&quot;;
+
+    let vm = new Vue({
+        el: &quot;#vm-carousel&quot;,
+        data: {
+            sample1: `&lt;div&gt;Hello World!&lt;/div&gt;`,
+            sample2: `alert(&quot;Hello World!)`
+        }
+    })
+&lt;/script&gt;</code></pre>
+<p>And we&#39;re done! Except our block-actions are incomplete...</p>
+<h2 id="binding-block-actions">Binding Block Actions</h2>
+<p>Lets look at the block actions from up above:</p>
+<pre><code class="language-html">&lt;block-carousel id=&quot;bc-samples&quot;&gt;
+    &lt;block&gt;
+        ...
+        &lt;block-action-list&gt;
+            &lt;block-action href=&quot;/somenav&quot; target=&quot;_blank&quot;&gt;
+                Nav To somenav
+            &lt;/block-action&gt;
+        &lt;/block-action-list&gt;
+    &lt;/block&gt;
+    &lt;block&gt;
+        ...
+        &lt;block-action-list&gt;
+            &lt;block-action&gt;
+                Execute myFunc
+            &lt;/block-action&gt;
+        &lt;/block-action-list&gt;
+    &lt;/block&gt;
+&lt;/block-carousel&gt;</code></pre>
+<p>The first one works as is. It takes an href (string), and an optional <code>target=&quot;_blank&quot;</code> attr (Currently, &quot;_blank&quot; is the only supported target value, because my time is limited).</p>
+<p>The second one says it wants to call a function, but no function is provided to it. Let&#39;s fix that:</p>
+<pre><code class="language-html">&lt;block-carousel id=&quot;bc-samples&quot;&gt;
+    ...
+    &lt;block&gt;
+        ...
+        &lt;block-action-list&gt;
+            &lt;block-action :action=&quot;myFunc&quot;&gt;
+                Execute myFunc
+            &lt;/block-action&gt;
+        &lt;/block-action-list&gt;
+    &lt;/block&gt;
+&lt;/block-carousel&gt;
+&lt;script type=&quot;module&quot;&gt;
+    import { BlockCarousel } from &quot;path/to/file.js&quot;;
+
+    let vm = new Vue({
+        el: &quot;#vm-carousel&quot;,
+        data: { ... },
+        methods: {
+            myFunc() {
+                alert(&quot;Hello World!&quot;)
+            }
+        }
+    })
+&lt;/script&gt;</code></pre>
+<p>And we&#39;re done! We&#39;ve successfully bound code samples and actions to each of our carousel blocks. </p>
