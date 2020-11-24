@@ -130,6 +130,7 @@
         &.fade-out {
             opacity: 0;
             -webkit-transition: .5s;
+            -moz-transition: .5s;
             transition: .5s;
         }
 
@@ -142,6 +143,8 @@
         &.fade-in {
             position: relative;
             opacity: 1;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
             transition: .5s;
         }
     }

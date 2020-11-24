@@ -1,0 +1,26 @@
+.csm-doc {
+    h2, h3 {
+        margin-top: 5rem;
+    }
+
+    h4 {
+        margin-top: 3.5rem;
+    }
+
+    pre {
+        margin: 2.5rem 0;
+        code {
+            margin: unset;
+        }
+    }
+
+    p {
+        text-align: justify;
+    }
+    
+    code {
+        padding: 0 .25rem;
+        line-height: 1.3rem;
+        background-color: var(--clr-bg-alt);
+    }
+}

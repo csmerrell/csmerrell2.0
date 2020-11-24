@@ -13,6 +13,7 @@ export let BlockCarousel = Vue.component('block-carousel', {
     },
     methods: {
         slidePrev: function() {
+            //Called when the left arrow is clicked. Grabs the previous block (cycles back at beginning)
             if(!this.actionLocked) {
                 this.actionLocked = true;
 
@@ -25,6 +26,7 @@ export let BlockCarousel = Vue.component('block-carousel', {
             }
         },
         slideNext: function() {
+            //Called when the right arrow is clicked. Grabs the next block (cycles back at end)
             if(!this.actionLocked) {
                 this.actionLocked = true;
 
@@ -37,6 +39,7 @@ export let BlockCarousel = Vue.component('block-carousel', {
             }
         },
         slideTo: function(idx) {
+            //Called when a navdot is clicked (can skip indices)
             if(!this.actionLocked) {
                 this.actionLocked = true;
 
@@ -44,11 +47,18 @@ export let BlockCarousel = Vue.component('block-carousel', {
             }
         },
         transition: function(currIdx, nextIdx) {
+            //Generic transition function called by all slide functions when they identify origin/destination indices
             if(this.beforeSlide) {
-                this.beforeSlide(this.$children(nextIdx), nextIdx);
+                this.beforeSlide({
+                    currBlock: this.$children(currIdx),
+                    currIdx: currIdx,
+                    nextBlock: this.$children(nextIdx),
+                    nextIdx: nextIdx
+                });
             }
-            this.blocks[nextIdx].isSelected = true;
+
             this.blocks[currIdx].isSelected = false;
+            this.blocks[nextIdx].isSelected = true;
 
             let fadeOutPromise = this.$children[currIdx].fadeOut();
 
@@ -57,20 +67,23 @@ export let BlockCarousel = Vue.component('block-carousel', {
                 this.currentBlockIdx = nextIdx;
 
                 if(this.onSlide) {
-                    this.onSlide(this.$children(this.currentBlockIdx), this.currentBlockIdx);
+                    this.onSlide({
+                        currBlock: this.$children(currIdx),
+                        currIdx: currIdx,
+                        nextBlock: this.$children(nextIdx),
+                        nextIdx: nextIdx
+                    });
                 }
 
                 this.actionLocked = false;        
-            });   
-        },
-        timer: function() {
-
-        },
-    },
-    created: function() {
+            });
+        }
     },
     mounted: function() {
+        //Tell the active child to set itself active
         this.$children[this.currentBlockIdx].setActive();
+
+        //Map the children to an arracy is objects that simply record their selected state. Used only to highlight the select navdot index
         this.blocks = this.$children.map((child) => {
             return {
                 isSelected: child.$data.isActive
@@ -103,9 +116,6 @@ export let BlockCarousel = Vue.component('block-carousel', {
 export let Block = Vue.component('block', {
     data: function() {
         return {
-            title: "",
-            contentBody: {},
-            actions: [],
             isActive: false
         }
     },
@@ -113,10 +123,6 @@ export let Block = Vue.component('block', {
         BlockType: function() {
             return this.blockType ? this.blockType : "code";
         }
-    },
-    props: {
-        name: String,
-        blockType: String
     },
     methods: {
         setActive: function() {
@@ -164,44 +170,18 @@ export let Block = Vue.component('block', {
 })
 
 export let BlockTitle = Vue.component('block-title', {
-    data: function() {
-        return {
-            test: {}
-        }
-    },
-    props: {
-        
-    },
-    methods: {
-        isImageBlock: function() {
-            return this.$parent.blockType == "image";
-        }
-    },
     template: /* html */`
         <div class="bc-block-title">
             <div class="bc-block-title-wrapper">
                 <h1>
                     <slot></slot>
                 </h1>
-                <div v-if="isImageBlock()" class="obfuscation-row">
-                </div>
             </div>
         </div>
     `
 })
 
 export let BlockContent = Vue.component('block-content', {
-    data: function() {
-        return {
-
-        }
-    },
-    props: {
-        
-    },
-    methods: {
-
-    },
     template: /* html */`
         <div class="bc-block-content pure-g  fade-container">
             <div class="pure-u-xs-1-24 pure-u-md-1-12 pure-u-lg-1-8 pure-u-xl-1-4"></div>

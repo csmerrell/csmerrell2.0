@@ -1,0 +1,66 @@
+{{!< docsHeader }}
+<h1 id="block-action-design-concerns">Block Action Design Concerns</h1>
+<p>At the bottom level of my <code>BlockCarousel</code> component, I have a <code>BlockAction</code> component that is currently little more than a styled/positioned, less-functional <code>&lt;a&gt;</code> tag written in 26 lines of code. Its not intensely problematic to revise, but I had enough thoughts on how I might refactor it that I decided to write this document to showcase my thought process when tackling component design.</p>
+<pre><code class="language-js">export let BlockAction = Vue.component(&#39;block-action&#39;, {
+    props: {
+        href: String,
+        action: Function,
+        target: String
+    },
+    methods: {
+        performAction: function() {
+            if(this.href) {
+                if(this.target == &quot;_blank&quot;) {
+                    window.open(this.href)
+                } else {
+                    window.location = this.href;
+                }
+            } else if(this.action) {
+                this.action();
+            }
+        },
+    },
+    template: /* html */`
+        &lt;div class=&quot;bc-block-action-container&quot;&gt;
+            &lt;div class=&quot;bc-block-action pure-button&quot; v-on:click=&quot;performAction&quot;&gt;
+                &lt;slot&gt;&lt;/slot&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `
+})</code></pre>
+<p>The <strong>performAction</strong> method above is horribly underbaked, and signifies everything about this component that needs refactoring. The functionality of this component is <em>less than a properly css-styled a-tag</em>. It can open urls either in <code>target=&quot;_self&quot;</code> or in <code>target=&quot;_blank&quot;</code>, but the former is just a default, undocumented behavior. It can also execute an <code>action</code> function which is really just an <code>onclick</code>. I could have just let people use <code>onclick</code></p>
+<p>The only benefit to component abstraction here was clean parent markup, and I left the dirty code in here so I could document considerations I&#39;d take for revision:</p>
+<ol>
+<li><p>Let developers implement, style, &amp; position actions themself.</p>
+<ul>
+<li>Drawback: This sacrifices a huge facet of the component&#39;s value. Almost definitely a NO.</li>
+<li>I <em>would</em>, however, allow developers a route where they could <em>opt in</em> to this choice. Options to relinquish control are always great in components.</li>
+</ul>
+</li>
+<li><p>Adhere to a strict rule that only plain text or <code>a</code> tags can be nested inside an action.</p>
+<ul>
+<li>Drawback: Maintenance developers using the component have to learn less implicitly communicated rules to use the component.</li>
+<li>Drawback: My supported content list might not reflect all desired use cases (what about iconography on the action buttons? Guarantee&#39;ing support is non-trivial)</li>
+</ul>
+</li>
+<li><p>Replace the current template wrapper with a <code>&lt;label for=&quot;someId&quot; ...&gt;</code> solution. Allow developers to place any element they want inside the action and just configure one of them with anm id such that clicking the action label triggers the desired event/behavior on that element.</p>
+<ul>
+<li>Drawback: Might require me to strip visibility of parts of the BlockAction&#39;s contents. I&#39;d have to consider possible use cases and review with other developers. </li>
+<li>Drawback: Slight learning curve, as developers would need to know how to configure the id of the action element and link it to a <code>prop</code> in the containing <code>BlockAction</code> element.</li>
+<li>I&#39;d consider taking this route, and make the documentation of the design choice prominent in the overall component documentation. It guarantees the greatest flexibility for a small added learning curve and is quick to implement.  </li>
+</ul>
+</li>
+<li><p>Drop the component abstraction at the <code>BlockAction</code> level all together and just require that developers place a certain class on whatever contents they place here.</p>
+<ul>
+<li>Drawback: Class assignment for contents of the <code>BlockAction</code> aren&#39;t necessarily straightforward. Different use cases could have very different structures. This would need a non-trivial amount of iteration to get it just right for most users, and would still require a lot of documentation explaining nuance. Not recommended.</li>
+</ul>
+</li>
+<li><p>Keep the current design and add more functionality to the <code>performAction</code> function so it supports all of the relevant attr&#39;s provided by <code>a</code> tags and document those options. Strip the <code>action</code> method and just let users use <code>onclick</code>, which is natively supported without my implementation.</p>
+<ul>
+<li>Drawback: It takes parameters like an <code>a</code> tag, but isn&#39;t an <code>a</code> tag. This would be a weird code smell for me if I was using this component as a separate party.</li>
+<li>Pro: This path still generates the most readable markup, and the easiest markup to showcase in usage docs.</li>
+<li>(My recommendation) - I&#39;d probably go this route, honestly. But I&#39;d review with other developers, first, since a good course seems unclear.</li>
+<li>I would still pair this decision with (1), and maybe provide/document styling/positioning css classes as well to give the option of more control to the later developers.</li>
+</ul>
+</li>
+</ol>

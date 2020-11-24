@@ -2,8 +2,8 @@ import express from 'express';
 
 const docsController = express.Router();
 
-docsController.get('/BlockCarousel', (req, res) => {
-    res.render('docs/BlockCarousel', { title: "API - Block Carousel", layout: "centeredLayout" });
+docsController.get('/*', (req, res) => {
+    res.render(`docs/${req.path}`, { title: "Block Carousel - Documentation", layout: "centeredLayout" });
 })
 
 docsController.get('/TagFilterview', (req, res) => {

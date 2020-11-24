@@ -21,11 +21,11 @@ body {
 
 pre {
     margin: 0;
-}
 
-code {
-    padding: 1rem 2rem !important;
-    border-radius: 2px;
+    code {
+        padding: 1rem 2rem !important;
+        border-radius: 2px;
+    }
 }
 
 [v-cloak] > * { display:none }
@@ -73,6 +73,10 @@ a {
             color: var(--clr-accent-inactive);
         }    
     }
+}
+
+.pure-g [class*="pure-u"] {
+    box-sizing: border-box;
 }
 
 .pure-button {

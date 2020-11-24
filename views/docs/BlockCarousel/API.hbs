@@ -1,0 +1,231 @@
+{{!< docsHeader }}
+<h1 id="block-carousel-api">Block Carousel API</h1>
+<p>A simple fading carousel <a href="https://vuejs.org">VueJS</a> component designed to showcase code samples.</p>
+<p>Usage:</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;link href=&#39;/static/css/compiled/components/blockCarousel.css&#39; rel=&quot;stylesheet&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;vm-carousel&quot; class=&quot;code-carousel&quot;&gt;
+        &lt;block-carousel id=&quot;bc-samples&quot; v-cloak&gt;
+            &lt;block&gt;
+                &lt;block-title&gt;
+                    Hello World
+                &lt;/block-title&gt;
+                &lt;block-content&gt;
+                    &lt;highlightjs autodetect :code=&quot;codeSample1&quot; /&gt;
+                &lt;/block-content&gt;
+                &lt;block-action-list&gt;
+                    &lt;block-action href=&quot;/&quot;&gt;
+                        Nav to href
+                    &lt;/block-action&gt;
+                &lt;/block-action-list&gt;
+            &lt;/block&gt;
+            &lt;block&gt;
+                &lt;block-title&gt;
+                    Sample 2
+                &lt;/block-title&gt;
+                &lt;block-content&gt;
+                    &lt;highlightjs autodetect :code=&quot;codeSample2&quot; /&gt;                
+                &lt;/block-content&gt;
+                &lt;block-action-list&gt;
+                    &lt;block-action :action=&quot;myFunc&quot;&gt;
+                        View Documentation
+                    &lt;/block-action&gt;
+                &lt;/block-action-list&gt;
+            &lt;/block&gt;
+        &lt;/block-carousel&gt;
+    &lt;/div&gt;
+
+    &lt;script type=&quot;module&quot;&gt;
+        import { BlockCarousel } from &quot;/static/js/components/blockCarousel.js&quot;;
+        import { CodeSample1, CodeSample2 } from &quot;/path/to/localdata.js&quot;;
+
+        window.vms[&quot;vm-carousel&quot;] = new Vue({
+            el: &quot;#vm-carousel&quot;,
+            components: [ BlockCarousel ],
+            data: {
+                codeSample1: CodeSample1,
+                codeSample2: CodeSample2,
+            },
+            methods: {
+                myFunc: () =&gt; { alert(&quot;Hi!&quot;); }
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<h2 id="block-carousel-block-carousel">Block Carousel: <code>&lt;block-carousel&gt;</code></h2>
+<p>The root component. Manages which code block is currently displayed. Houses events for nav arrows and nav dots.</p>
+<p>Only supports children elements of type <code>&lt;block&gt;</code>.</p>
+<pre><code class="language-html">&lt;block-carousel&gt;
+    &lt;block&gt;...&lt;/block&gt;
+    &lt;block&gt;...&lt;/block&gt;
+    &lt;block&gt;...&lt;/block&gt;
+    &lt;block&gt;...&lt;/block&gt;
+&lt;/block-carousel&gt;</code></pre>
+<h3 id="props">Props</h3>
+<ul>
+<li><code>beforeSlide</code>: Function<ul>
+<li>Default Value: <code>null</code></li>
+<li>A callback event that fires before a user-triggered block change event occurs.</li>
+<li>Params:<ul>
+<li><code>e</code>: Object (EventArgs)<ul>
+<li><code>currBlock</code>: Object (Vue Component - Block)<ul>
+<li>The current (fading out) block component.</li>
+</ul>
+</li>
+<li><code>currIdx</code>: Number<ul>
+<li>Index of the current block in the root component&#39;s children array.</li>
+</ul>
+</li>
+<li><code>nextBlock</code>: Object (Vue Component)<ul>
+<li>The next (fading in) block component.</li>
+</ul>
+</li>
+<li><code>nextIdx</code>: Number<ul>
+<li>Index of the next block in the root component&#39;s children array.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Usage:<pre><code class="language-html">  &lt;block-carousel :beforeSlide=&quot;myFunc&quot;&gt;
+      ...
+  &lt;/block-carousel&gt;
+  &lt;script type=&quot;module&quot;&gt;
+      window.vms[&quot;vm-carousel&quot;] = new Vue({
+          ...
+          methods: {
+              myFunc: (e) =&gt; { 
+                  console.log(e.currBlock); 
+              }
+          }
+      })
+  &lt;/script&gt;</code></pre>
+</li>
+</ul>
+</li>
+<li><code>onSlide</code>: Function<ul>
+<li>Default Value: <code>null</code></li>
+<li>A callback event that fires after a user-triggered block change event occurs and the new block is fully transitioned in.</li>
+<li>Params:<ul>
+<li><code>e</code>: Object (EventArgs)<ul>
+<li><code>currBlock</code>: Object (Vue Component - Block)<ul>
+<li>The current (fading out) block component.</li>
+</ul>
+</li>
+<li><code>currIdx</code>: Number<ul>
+<li>Index of the current block in the root component&#39;s children array.</li>
+</ul>
+</li>
+<li><code>nextBlock</code>: Object (Vue Component)<ul>
+<li>The next (fading in) block component.</li>
+</ul>
+</li>
+<li><code>nextIdx</code>: Number<ul>
+<li>Index of the next block in the root component&#39;s children array.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Usage:<pre><code class="language-html">  &lt;block-carousel :onSlide=&quot;myFunc&quot;&gt;
+      ...
+  &lt;/block-carousel&gt;
+  &lt;script type=&quot;module&quot;&gt;
+      window.vms[&quot;vm-carousel&quot;] = new Vue({
+          ...
+          methods: {
+              myFunc: (e) =&gt; { 
+                  console.log(e.currBlock); 
+              }
+          }
+      })
+  &lt;/script&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="block---block">Block - <code>&lt;block&gt;</code></h2>
+<p>A display panel within the carousel intended for showing raw code strings. Can contain exactly 3 child components: <code>BlockTitle</code>, <code>BlockContent</code>, <code>BlockActionList</code></p>
+<pre><code class="language-html">&lt;block&gt;
+    &lt;block-title&gt;...&lt;/block-title&gt;
+    &lt;block-content&gt;...&lt;/block-content&gt;
+    &lt;block-action-list&gt;...&lt;/block-action-list&gt;
+&lt;/block&gt;</code></pre>
+<h3 id="props-1">Props</h3>
+<p>None</p>
+<h2 id="blocktitle---block-title">BlockTitle - <code>&lt;block-title&gt;</code></h2>
+<p>A slim component for styling the block&#39;s header title.</p>
+<pre><code class="language-html">&lt;block-title&gt; Demo: Code Carousel &lt;/block-title&gt;</code></pre>
+<h3 id="props-2">Props</h3>
+<p>None</p>
+<h2 id="blockcontent---block-content">BlockContent - <code>&lt;block-content&gt;</code></h2>
+<p>A slim component for styling the block&#39;s header title.</p>
+<pre><code class="language-html">&lt;block-content&gt;
+    &lt;pre&gt;
+        &lt;code language=&quot;html&quot;&gt;
+            &amp;lt;div&gt; Hello World! &amp;lt;div&gt;
+        &lt;/code&gt;
+    &lt;/pre&gt;
+&lt;/block-content&gt;</code></pre>
+<h3 id="props-3">Props</h3>
+<p>None</p>
+<h2 id="block-action-list---block-action-list">Block Action List - <code>&lt;block-action-list&gt;</code></h2>
+<p>A wrapper component to position and style several <code>BlockAction</code> components.</p>
+<pre><code class="language-html">&lt;block-action-list&gt;
+    &lt;block-action&gt;...&lt;/block-action&gt;
+    &lt;block-action&gt;...&lt;/block-action&gt;
+    &lt;block-action&gt;...&lt;/block-action&gt;
+&lt;/block-action-list&gt;</code></pre>
+<h3 id="props-4">Props</h3>
+<p>None</p>
+<h2 id="block-action-block-action">Block Action <code>&lt;block-action&gt;</code></h2>
+<p>A component for action buttons floating over the bottom of the carousel.</p>
+<pre><code class="language-html">&lt;block-action&gt;
+    Do Something
+&lt;/block-action&gt;</code></pre>
+<h2 id="props-5">Props</h2>
+<ul>
+<li><code>href</code>: String<ul>
+<li>Default Value: <code>null</code></li>
+<li>A link that the button to navigate to when clicked</li>
+<li>Usage<pre><code class="language-html">  &lt;block-action href=&quot;https://somewhere.com&quot;&gt;
+      Go Somewhere
+  &lt;/block-action&gt;</code></pre>
+</li>
+</ul>
+</li>
+<li><code>target</code>: String<ul>
+<li>Default Value: <code>null</code></li>
+<li>Supported Values: <code>&quot;_blank&quot;</code></li>
+<li>If present and has the value <code>&quot;_blank&quot;</code>, href links will be opened in a new browser tab, instead of the current one.</li>
+<li>Usage<pre><code class="language-html">  &lt;block-action href=&quot;https://somewhere.com&quot; target=&quot;_blank&quot;&gt;
+      Go Somewhere
+  &lt;/block-action&gt;</code></pre>
+</li>
+</ul>
+</li>
+<li><code>action</code>: Function<ul>
+<li>Default Value: <code>null</code></li>
+<li>A callback function that fires if the BlockAction element is clicked.</li>
+<li>Usage<pre><code class="language-html">  &lt;block-action :action=&quot;doSomething&quot;&gt;
+      Do Something
+  &lt;/block-action&gt;
+  ...
+  &lt;script&gt;
+      new Vue({
+          ...
+          methods: {
+              doSomething: () =&gt; { ... }
+          }
+      })
+  &lt;/script&gt;</code></pre>
+</li>
+<li>NOTE: Action is pre-empted if an href is present.</li>
+<li>NOTE: Alternatively, native html <code>onclick</code> can be used to similar effect. <code>onclick</code> will not be pre-empted when an <code>href</code> is supplied.</li>
+</ul>
+</li>
+</ul>
