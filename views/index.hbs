@@ -1,5 +1,10 @@
-<div id="home" style="display: none;">
+{{#section 'stylesheets'}}
     <link href="/static/css/compiled/views/home.css" rel="stylesheet" />
+    <link href='/static/css/compiled/components/blockCarousel.css' rel="stylesheet" />
+    <link href="static/css/compiled/components/filterableTag.css" rel="stylesheet" />
+{{/section}}
+
+<div id="home" style="display: none;">
     <div id="vm-intro" class="about-me">
         <div class="pure-u-1-24 pure-u-md-1-12 pure-u-xl-1-8"></div>
         <div class="pure-u-11-12 pure-u-md-5-6 pure-u-xl-3-4">
@@ -63,8 +68,6 @@
         <div class="pure-u-1-24 pure-u-md-1-12 pure-u-xl-1-8"></div>
     </div>
     <div id="vm-carousel" class="code-carousel">
-        <link href='/static/css/compiled/components/blockCarousel.css' rel="stylesheet" />
-
         <block-carousel id="bc-samples" v-cloak>
             <block>
                 <block-title>
@@ -96,8 +99,8 @@
                     <highlightjs autodetect :code="codeSample2" />                
                 </block-content>
                 <block-action-list>
-                    <block-action href="docs/TagFilterview">
-                        View Documentation
+                    <block-action href="docs/TagFilterview/Design">
+                        Design Doc
                     </block-action>
                 </block-action-list>
             </block>
@@ -109,8 +112,8 @@
                     <highlightjs autodetect :code="codeSample3" />                
                 </block-content>
                 <block-action-list>
-                    <block-action href="docs/ThemeSelector">
-                        View Documentation
+                    <block-action href="docs/ThemeSelector/Design">
+                        Design Doc
                     </block-action>
                 </block-action-list>
             </block>
@@ -119,17 +122,13 @@
     <div id="vm-skill-filterview" class="skill-filterview pure-g pure-form hidden">
         <div class="pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6"></div>
         <div class="pure-u-11-12 pure-u-lg-5-6 pure-u-xl-2-3">
-            <link href="static/css/compiled/components/filterableTag.css" rel="stylesheet" />
-
-
             <h2>Professional Skills</h2>
             <div class="pure-u-1 skill-filter">
                 <input type="text" class="pure-input-1" v-on:keyup="updateFilter" placeholder="Filter skills"/>
             </div>
             <div class="skill-list pure-g">
                 <div class="skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" v-for="(skill, key) in skills">
-                    <filterable-tag :data-key="key" :data-item="skill" :filter-str="filterStr" :on-toggle="adjustSizing" 
-                        :on-filter="setVisibility"></filterable-tag>
+                    <filterable-tag :data-key="key" :data-item="skill" :filter-str="filterStr" :on-filter="setVisibility"></filterable-tag>
                 </div>
                 <div class="fade-tags skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" v-for="tag in fadeTags" v-if="hasNoFilters()">
                     <filterable-tag data-key="empty" data-item="{}" filter-str=""></filterable-tag>
@@ -143,99 +142,101 @@
 </div>
 {{> loaders/centerAdjusted loaderId="main-loader" pos="fixed" opacity="opaque"}}
 
-<!-- Loader binding -->
-<script>
-    window.homeEl = document.getElementById("home");
-    window.mainLoaderEl = document.getElementById("main-loader");
-    window.mainLoaderEl.style.display = 'block';
-</script>
+{{#section 'postScripts'}}
+    <!-- Loader binding -->
+    <script>
+        window.homeEl = document.getElementById("home");
+        window.mainLoaderEl = document.getElementById("main-loader");
+        window.mainLoaderEl.style.display = 'block';
+    </script>
 
-<!-- Block Carousel vm mounting and data config -->
-<script type="module">
-    import { BlockCarousel } from "/static/js/components/blockCarousel.js";
-    import { CodeSample1, CodeSample2, CodeSample3 } from "/static/js/localData/codeSamples.js";
+    <!-- Block Carousel vm mounting and data config -->
+    <script type="module">
+        import { BlockCarousel } from "/static/js/components/blockCarousel.js";
+        import { CodeSample1, CodeSample2, CodeSample3 } from "/static/js/localData/codeSamples.js";
 
-    window.vms["vm-carousel"] = new Vue({
-        el: "#vm-carousel",
-        components: [ BlockCarousel ],
-        data: {
-            codeSample1: CodeSample1,
-            codeSample2: CodeSample2,
-            codeSample3: CodeSample3
-        },
-        mounted: function() {
-            setTimeout(() => {
-                window.mainLoaderEl.style.display ="none";
-                window.homeEl.style.display = "block";
-            }, 1000)
-        }
-    })
-</script>
-
-<!-- Skill filterview vm mounting and data config -->
-<script type="module">
-    import { skills } from "/static/js/localData/skills.js";
-    import { mapSkillArray, mapSkillKeywords } from "/static/js/util/mapper.js";
-    import { FilterableTag } from "/static/js/components/filterableTag.js";
-
-    let skillMap = mapSkillArray(skills);
-    mapSkillKeywords(skillMap);
-
-    window.vms["vm-skill-filterview"] = new Vue({
-        el: "#vm-skill-filterview",
-        components: [ FilterableTag ],
-        data: {
-            skills: skillMap,
-            fadeTags: [{},{},{},{}],
-            filterStr: "",
-            activeFilter: null
-        },
-        methods: {
-            updateFilter: function(e) {
-                let skillLoader = document.getElementById('skill-loader');
-                skillLoader.style.display = 'block';
-
-                this.filterStr = e.target.value;
-
-                //TODO - Refactor this to await resolution of a promise tied to all the skill filter processes.
+        window.vms["vm-carousel"] = new Vue({
+            el: "#vm-carousel",
+            components: [ BlockCarousel ],
+            data: {
+                codeSample1: CodeSample1,
+                codeSample2: CodeSample2,
+                codeSample3: CodeSample3
+            },
+            mounted: function() {
                 setTimeout(() => {
-                    skillLoader.style.display = "none";
-                }, 500)
-            },
-            adjustSizing: function(e) {
-                //NOTE - Function never fires with expandable skill tags disabled.
-                //TODO - Revise or remove this code when the skill tags are made expandable with additional details
-
-                /*
-                    This could be done with cleaner code by converting the skill container to an "expandableColumn" component in its own right.
-                    Instead, this method shows a strategy for mixing component-framework logic with native javascript logic.
-                */
-
-                if(e.isExpanded) {
-                    e.$el.parentElement.className = "skill pure-u-1";
-                } else {
-                    e.$el.parentElement.className = "skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4";
-                }
-            },
-            setVisibility: function(e) {
-                if(e.isVisible) {
-                    e.$el.parentElement.classList.remove("hidden");
-                } else {
-                    e.$el.parentElement.classList.add("hidden");
-                }
-            },
-            hasNoFilters: function() {
-                return this.filterStr == "";
+                    window.mainLoaderEl.style.display ="none";
+                    window.homeEl.style.display = "block";
+                }, 1000)
             }
-        },
-        created: function() {
-            this.updateFilter = _.debounce(this.updateFilter, 500);
-        },
-        mounted: function() {
-            setTimeout(() => {
-                //Wait for all children to mount before showing the parent component
-                this.$el.classList.remove("hidden");
-            }, 100)
-        }
-    })
-</script>
+        })
+    </script>
+
+    <!-- Skill filterview vm mounting and data config -->
+    <script type="module">
+        import { skills } from "/static/js/localData/skills.js";
+        import { mapSkillArray, mapSkillKeywords } from "/static/js/util/mapper.js";
+        import { FilterableTag } from "/static/js/components/filterableTag.js";
+
+        let skillMap = mapSkillArray(skills);
+        mapSkillKeywords(skillMap);
+
+        window.vms["vm-skill-filterview"] = new Vue({
+            el: "#vm-skill-filterview",
+            components: [ FilterableTag ],
+            data: {
+                skills: skillMap,
+                fadeTags: [{},{},{},{}],
+                filterStr: "",
+                activeFilter: null
+            },
+            methods: {
+                updateFilter: function(e) {
+                    let skillLoader = document.getElementById('skill-loader');
+                    skillLoader.style.display = 'block';
+
+                    this.filterStr = e.target.value;
+
+                    //TODO - Refactor this to await resolution of a promise tied to all the skill filter processes.
+                    setTimeout(() => {
+                        skillLoader.style.display = "none";
+                    }, 500)
+                },
+                adjustSizing: function(e) {
+                    //NOTE - Function never fires with expandable skill tags disabled.
+                    //TODO - Revise or remove this code when the skill tags are made expandable with additional details
+
+                    /*
+                        This could be done with cleaner code by converting the skill container to an "expandableColumn" component in its own right.
+                        Instead, this method shows a strategy for mixing component-framework logic with native javascript logic.
+                    */
+
+                    if(e.isExpanded) {
+                        e.$el.parentElement.className = "skill pure-u-1";
+                    } else {
+                        e.$el.parentElement.className = "skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4";
+                    }
+                },
+                setVisibility: function(e) {
+                    if(e.isVisible) {
+                        e.$el.parentElement.classList.remove("hidden");
+                    } else {
+                        e.$el.parentElement.classList.add("hidden");
+                    }
+                },
+                hasNoFilters: function() {
+                    return this.filterStr == "";
+                }
+            },
+            created: function() {
+                this.updateFilter = _.debounce(this.updateFilter, 500);
+            },
+            mounted: function() {
+                setTimeout(() => {
+                    //Wait for all children to mount before showing the parent component
+                    this.$el.classList.remove("hidden");
+                }, 100)
+            }
+        })
+    </script>
+{{/section}}

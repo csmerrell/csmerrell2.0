@@ -7,9 +7,10 @@ export let CodeSample1 = `<block-carousel id="bc-samples" v-cloak>
             <highlightjs autodetect :code="codeSample1" />                
         </block-content>
         <block-action-list>
-            <block-action href="docs/BlockCarousel" target="_blank">
-                View Documentation
+            <block-action href="docs/BlockCarousel/GettingStarted" target="_blank">
+                Usage
             </block-action>
+            <!-- Additional Action/Nav Buttons -->
         </block-action-list>
     </block>
     <!-- Additional blocks as needed -->
@@ -101,13 +102,9 @@ export let CodeSample2 = `export let FilterableTag = Vue.component('filterable-t
 
 export let CodeSample3 = `:root[theme='dark'] {
     --clr-bg: var(--clr-dk-base);
-    --clr-bg-rgb: var(--clr-dk-base-rgb);
     --clr-bg-alt: var(--clr-dk-alt);
-    --clr-bg-alt-rgb: var(--clr-dk-alt-rgb);
     --clr-bg-hover: var(--clr-dk-hover);
     --clr-bg-active: var(--clr-dk-active);
-    --clr-bg-input: var(--clr-dk-input);
-    --clr-border: var(--clr-dk-border);    
 
     --clr-fonts-base: var(--clr-fonts-white);
     --clr-fonts-alt: var(--clr-fonts-white-alt);
@@ -115,40 +112,30 @@ export let CodeSample3 = `:root[theme='dark'] {
     --clr-fonts-inactive: var(--clr-fonts-white-inactive);
 
     --clr-primary: var(--clr-dk-primary);
-    --clr-primary-alt: var(--clr-dk-primary-alt);
-    --clr-primary-active: var(--clr-dk-primary-active);
-    --clr-primary-inactive: var(--clr-dk-primary-inactive);
+    /* ... Primary Color Variants */
 
     --clr-accent: var(--clr-dk-accent);
-    --clr-accent-alt: var(--clr-dk-accent-alt);
-    --clr-accent-active: var(--clr-dk-accent-active);
-    --clr-accent-inactive: var(--clr-dk-accent-inactive);
-    --clr-accent-font: var(--clr-dk-accent-font);
+    /* ... Accent Color Variants */
 }
 
-:root[theme='light'] {
-    --clr-bg: var(--clr-lt-base);
-    --clr-bg-rgb: var(--clr-lt-base-rgb);
-    --clr-bg-alt: var(--clr-lt-alt);
-    --clr-bg-alt-rgb: var(--clr-lt-alt-rgb);
-    --clr-bg-hover: var(--clr-lt-hover);
-    --clr-bg-active: var(--clr-lt-active);
-    --clr-bg-input: var(--clr-lt-input);
-    --clr-border: var(--clr-lt-border);        
+body {
+    background-color: var(--clr-bg);
+    color: var(--clr-fonts-base);
 
-    --clr-fonts-base: var(--clr-fonts-black);
-    --clr-fonts-alt: var(--clr-fonts-black-alt);
-    --clr-fonts-active: var(--clr-fonts-black-active);
-    --clr-fonts-inactive: var(--clr-fonts-white-inactive);
-
-    --clr-primary: var(--clr-lt-primary);
-    --clr-primary-alt: var(--clr-lt-primary-alt);
-    --clr-primary-active: var(--clr-lt-primary-active);
-    --clr-primary-inactive: var(--clr-lt-primary-inactive);
-
-    --clr-accent: var(--clr-lt-accent);
-    --clr-accent-alt: var(--clr-lt-accent-alt);
-    --clr-accent-active: var(--clr-lt-accent-active);
-    --clr-accent-inactive: var(--clr-lt-accent-inactive);
-    --clr-accent-font: var(--clr-lt-accent-font);
+    .pure-button {
+        background-color: var(--clr-accent);
+        color: var(--clr-accent-font);
+    
+        &:hover {
+            background-color: var(--clr-accent-alt);
+        }
+    
+        &:active {
+            background-color: var(--clr-accent-active);
+        }
+    
+        &:disabled {
+            background-color: var(--clr-accent-inactive);
+        }
+    }
 }`

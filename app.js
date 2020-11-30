@@ -7,15 +7,25 @@ import path from 'path';
 // Init an Express App. 
 const app = express();
 
-app.engine('hbs', exphbs.create({
+var hbs = exphbs.create({
     extname: '.hbs',
     partialsDir: __dirname + '/views/partials',
-    layoutsDir: __dirname + '/views/layouts'
-}));
-app.locals.layout = 'centeredLayout';
+    layoutsDir: __dirname + '/views/layouts',
+});
+var handlebars = hbs.handlebars;
+handlebars.registerHelper('section', function(name, options) { 
+    if (!this._sections) {
+        this._sections = {};
+    }
+    this._sections[name] = new handlebars.SafeString(options.fn(this)); 
+    return null;
+})
 
+app.engine('hbs', hbs);
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
+
+app.locals.layout = 'centeredLayout';
 
 // Use your dependencies here
 app.use(bodyParser.urlencoded({ extended: false }));

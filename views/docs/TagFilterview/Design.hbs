@@ -1,0 +1,20 @@
+{{!< docsHeader }}
+<h1 id="tag-filterview-design-under-construction">Tag Filterview Design (Under Construction)</h1>
+<p>The &quot;Tag Filterview,&quot; as I&#39;m calling it, refers to the skill list displayed at the foot of this application&#39;s main page. Despite the name, this filterview is not actually a registered component. It&#39;s just a root vue instance that uses a <code>v-for</code> binding to display a databound list of <code>&lt;filterable-tag&gt;</code> components.</p>
+<pre><code class="language-html">&lt;div id=&quot;vm-skill-filterview&quot; class=&quot;skill-filterview pure-g pure-form hidden&quot;&gt;
+    &lt;div class=&quot;pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;pure-u-11-12 pure-u-lg-5-6 pure-u-xl-2-3&quot;&gt;
+        &lt;h2&gt;Professional Skills&lt;/h2&gt;
+        &lt;div class=&quot;pure-u-1 skill-filter&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;pure-input-1&quot; v-on:keyup=&quot;updateFilter&quot; placeholder=&quot;Filter skills&quot;/&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;skill-list pure-g&quot;&gt;
+            &lt;div class=&quot;skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4&quot; v-for=&quot;(skill, key) in skills&quot;&gt;
+                &lt;filterable-tag :data-key=&quot;key&quot; :data-item=&quot;skill&quot; :filter-str=&quot;filterStr&quot; :on-filter=&quot;setVisibility&quot;&gt;&lt;/filterable-tag&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;fade-out&quot; v-if=&quot;hasNoFilters()&quot;&gt;&lt;/div&gt;
+            \{{&gt; loaders/centerAdjusted loaderId=&quot;skill-loader&quot; pos=&quot;absolute&quot; opacity=&quot;transparent&quot; }}
+        &lt;/div&gt; 
+    &lt;/div&gt;
+    &lt;div class=&quot;pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
