@@ -38,6 +38,7 @@
             document.documentElement.setAttribute('theme', 'light');
             document.getElementById('themeToggler').checked = true;
         } else {
+            //Dark theme is the default
             document.documentElement.setAttribute('theme', 'dark');
             document.getElementById('themeToggler').checked = false;        
         }
@@ -48,12 +49,10 @@
         function themeToggle() {
             if(document.documentElement.getAttribute('theme') == 'dark') {
                 document.documentElement.setAttribute('theme', 'light');
-                document.getElementById('themeToggler').checked = true;
                 window.localStorage['csm_theme'] = 'light';
             }
             else {
                 document.documentElement.setAttribute('theme', 'dark');
-                document.getElementById('themeToggler').checked = false;
                 window.localStorage['csm_theme'] = 'dark';          
             }
         }

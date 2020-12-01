@@ -1,0 +1,150 @@
+{{!< docsHeader }}
+<h1 id="filterable-tag-api">Filterable Tag API</h1>
+<p>A styled tag that tracks whether it should be visible or not based on a supplied filter string.</p>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-html">&lt;div id=&quot;vm-filterview&quot; class=&quot;tag-list&quot;&gt;
+    &lt;input type=&quot;text&quot; v-model=&quot;userFilter&quot;&gt;
+    &lt;div class=&quot;tag-spacing&quot; v-for=&quot;(tag, key) in tagItems&quot;&gt;
+        &lt;filterable-tag :data-key=&quot;key&quot; :data-item=&quot;tag&quot; :filter-str=&quot;userFilter&quot; on-filter=&quot;setVisbility&quot;&gt;&lt;/filterable-tag&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script type=&quot;module&quot;&gt;
+    let itemMap = {
+        &quot;item1&quot; : {
+            shorthand: &quot;Item 1&quot;,
+            url: &quot;someUrl&quot;,
+            logo: null, //path to a logo if available (png/svg)
+            altIcon: &quot;fa-check&quot;, //Current supports font-awesome style iconography as alternative to a logo file
+            keywords: [/* string list */],
+            keywordMap: {
+                /* key/value pair mapped version of the keywords array */
+            }
+        },
+        &quot;item2&quot; : {
+            /* ... */
+        },
+        // ...
+    }
+
+    window.vms[&quot;vm-filterview&quot;] = new Vue({
+        el: &quot;#vm-filterview&quot;,
+        components: [ FilterableTag ],
+        data: {
+            tagItems: itemMap,
+            userFilter: &quot;&quot;
+        },
+        methods: {
+            //...
+            setVisibility: function(e) {
+                if(e.isVisible) {
+                    e.$el.parentElement.classList.remove(&quot;hidden&quot;);
+                } else {
+                    e.$el.parentElement.classList.add(&quot;hidden&quot;);
+                }
+            }
+        }
+    });
+&lt;/script&gt;</code></pre>
+<h2 id="props">Props</h2>
+<ul>
+<li><code>dataKey</code>: String (Required)<ul>
+<li>Default Value: <code>null</code></li>
+<li>A key using the core string this tag would match against in a filter event.</li>
+<li>Usage:<pre><code class="language-html">  &lt;filterable-tag :data-key=&quot;someVal&quot;&gt;&lt;/filterable-tag&gt;</code></pre>
+</li>
+</ul>
+</li>
+<li><code>dataItem</code>: Object (Required)<ul>
+<li>Default Value: <code>null</code></li>
+<li>The item to display in the tag&#39;s body.</li>
+<li>Schema:<pre><code class="language-json">  {
+      &quot;shorthand&quot; : &quot;Example&quot;, //String (Displays in the tag&#39;s right space)
+      &quot;logo&quot; : &quot;path/to/logo.png&quot;, //String (Displays in the tags left space)
+      &quot;altIcon&quot; : &quot;fa-check&quot;, //String (Font awesome icon class name. Displays in the logo space if logo not provided)
+      &quot;url&quot; : &quot;https://navToLink.dev&quot;, //String (Clicking the tag will open this link in a new tab)
+      &quot;keywordMap&quot; : {
+          &quot;keyword1&quot; : &quot;keyword1&quot;,
+          &quot;keyword2&quot; : &quot;...&quot; // Only the key&#39;s existence will be checked. The values can be anything (null-inclusive).
+      },
+      &quot;keywords&quot; : [ /* List of keyword strings */ ] //Only required for current implementation with temporary `startsWith` matching
+  }</code></pre>
+</li>
+<li>Usage:<pre><code class="language-html">  &lt;script&gt;
+      let exampleItem = {
+          shorthand: &quot;Example&quot;,
+          logo : &quot;path/to/logo.png&quot;,
+          altIcon : &quot;fa-check&quot;,
+          url : &quot;https://navToLink.dev&quot;,
+          keywordMap : {
+              &quot;keyword1&quot; : &quot;keyword1&quot;,
+              &quot;keyword2&quot; : null
+          },
+          keywords : [ &quot;keyword1&quot;, &quot;keyword2&quot; ]
+      }
+  &lt;/script&gt;
+  &lt;filterable-tag :dataItem=&quot;exampleItem&quot;&gt;&lt;/filterable-tag&gt;</code></pre>
+</li>
+</ul>
+</li>
+<li><code>filterStr</code>: String (Required)<ul>
+<li>Default Value: <code>null</code></li>
+<li>A string that will be run against the tag&#39;s filtering algorithm. <ul>
+<li>If it matches the <code>dataKey</code> or a keyword in <code>dataItem.keywordMap</code>, the tag will report to its parent that its <code>isVisible</code> value has been set to <code>true</code>.</li>
+<li>If no match is found, the tag will report to its parent that its <code>isVisible</code> value has been set to <code>false</code>.</li>
+</ul>
+</li>
+<li>Usage:<pre><code class="language-html">  &lt;script type=&quot;module&quot;&gt;
+      window.vms[&quot;vm-filterview&quot;] = new Vue({
+          el: &quot;#vm-filterview&quot;,
+          data: {
+              userFilter: &quot;&quot;
+          }
+      });
+  &lt;/script&gt;
+  &lt;div id=&quot;vm-filterview&quot; class=&quot;tag-list&quot;&gt;
+      &lt;input type=&quot;text&quot; v-model=&quot;userFilter&quot;&gt;
+      &lt;filterable-tag :filter-str=&quot;userFilter&quot;&gt;&lt;/filterable-tag&gt;
+  &lt;/div&gt;</code></pre>
+</li>
+</ul>
+</li>
+<li><code>onFilter</code>: Function<ul>
+<li>Default Value: <code>null</code></li>
+<li>A callback function that fires anytime the tag&#39;s <code>fiterStr</code> watch function completes.</li>
+<li>Params:<ul>
+<li><code>e</code> : EventArgs Object (<code>FilterableTag</code> component instance)<ul>
+<li>Schema:</li>
+<li><code>isVisible</code>: Boolean<ul>
+<li>Whether the tag should be visible, per the provided <code>filterStr</code></li>
+</ul>
+</li>
+<li>(Other props inherited from <code>Vue.component</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Usage:<pre><code class="language-html">  &lt;script type=&quot;module&quot;&gt;
+      window.vms[&quot;vm-filterview&quot;] = new Vue({
+          el: &quot;#vm-filterview&quot;,
+          data: {
+              userFilter: &quot;&quot;
+          },
+          methods: {
+              setVisibility: function(e) {
+                  if(e.isVisible) {
+                      e.$el.parentElement.classList.remove(&quot;hidden&quot;);
+                  } else {
+                      e.$el.parentElement.classList.add(&quot;hidden&quot;);
+                  }
+              }
+          }
+      });
+  &lt;/script&gt;
+  &lt;div id=&quot;vm-filterview&quot; class=&quot;tag-list&quot;&gt;
+      &lt;input type=&quot;text&quot; v-model=&quot;userFilter&quot;&gt;
+      &lt;filterable-tag :filter-str=&quot;userFilter&quot; :on-filter=&quot;setVisibility&quot;&gt;&lt;/filterable-tag&gt;
+  &lt;/div&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ul>

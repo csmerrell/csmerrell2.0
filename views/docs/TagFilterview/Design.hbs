@@ -1,20 +1,249 @@
 {{!< docsHeader }}
-<h1 id="tag-filterview-design-under-construction">Tag Filterview Design (Under Construction)</h1>
-<p>The &quot;Tag Filterview,&quot; as I&#39;m calling it, refers to the skill list displayed at the foot of this application&#39;s main page. Despite the name, this filterview is not actually a registered component. It&#39;s just a root vue instance that uses a <code>v-for</code> binding to display a databound list of <code>&lt;filterable-tag&gt;</code> components.</p>
+<h1 id="tag-filterview-design">Tag Filterview Design</h1>
+<p>The &quot;Tag Filterview,&quot; as I&#39;m calling it, refers to the skill list displayed at the foot of this application&#39;s <a href="/">home page</a>. Despite the component-like name, this filterview is not actually a registered component. It&#39;s just a root vue instance that uses a <code>v-for</code> binding to display a databound list of <code>&lt;filterable-tag&gt;</code> components.</p>
 <pre><code class="language-html">&lt;div id=&quot;vm-skill-filterview&quot; class=&quot;skill-filterview pure-g pure-form hidden&quot;&gt;
-    &lt;div class=&quot;pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6&quot;&gt;&lt;/div&gt;
-    &lt;div class=&quot;pure-u-11-12 pure-u-lg-5-6 pure-u-xl-2-3&quot;&gt;
-        &lt;h2&gt;Professional Skills&lt;/h2&gt;
-        &lt;div class=&quot;pure-u-1 skill-filter&quot;&gt;
-            &lt;input type=&quot;text&quot; class=&quot;pure-input-1&quot; v-on:keyup=&quot;updateFilter&quot; placeholder=&quot;Filter skills&quot;/&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;skill-list pure-g&quot;&gt;
-            &lt;div class=&quot;skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4&quot; v-for=&quot;(skill, key) in skills&quot;&gt;
-                &lt;filterable-tag :data-key=&quot;key&quot; :data-item=&quot;skill&quot; :filter-str=&quot;filterStr&quot; :on-filter=&quot;setVisibility&quot;&gt;&lt;/filterable-tag&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;fade-out&quot; v-if=&quot;hasNoFilters()&quot;&gt;&lt;/div&gt;
-            \{{&gt; loaders/centerAdjusted loaderId=&quot;skill-loader&quot; pos=&quot;absolute&quot; opacity=&quot;transparent&quot; }}
-        &lt;/div&gt; 
+    &lt;h2&gt;Professional Skills&lt;/h2&gt;
+    &lt;div class=&quot;pure-u-1 skill-filter&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;pure-input-1&quot; v-on:keyup=&quot;updateFilter&quot; placeholder=&quot;Filter skills&quot;/&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;pure-u-1-24 pure-u-lg-1-12 pure-u-xl-1-6&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;skill-list pure-g&quot;&gt;
+        &lt;div class=&quot;skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4&quot; v-for=&quot;(skill, key) in skills&quot;&gt;
+            &lt;filterable-tag :data-key=&quot;key&quot; :data-item=&quot;skill&quot; :filter-str=&quot;filterStr&quot; :on-filter=&quot;setVisibility&quot;&gt;&lt;/filterable-tag&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;fade-out&quot; v-if=&quot;hasNoFilters()&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt; 
 &lt;/div&gt;</code></pre>
+<h2 id="filterable-tag">Filterable Tag</h2>
+<p>Let&#39;s cover the pivotal component, first. A filterable tag takes a <code>dataItem</code> and does two things:</p>
+<ol>
+<li>Style itself as a clickable two-part tag (Logo + Shorthand Descriptor)</li>
+<li>Watch a <code>filterStr</code> prop (managed by the parent) and run a keyword search anytime that filter changes to update its own visibility.</li>
+</ol>
+<p>For the full Tag API specs, go <a href="/TagApi">here</a></p>
+<h3 id="updating-tag-visbility">Updating Tag Visbility</h3>
+<p>The visibility of a tag is controlled by <em>the parent Vue Instance</em>:</p>
+<pre><code class="language-html">&lt;div id=&quot;vm-skill-filterview&quot;&gt;
+    &lt;!-- ... --&gt;
+    &lt;div class=&quot;skill-list pure-g&quot;&gt;
+        &lt;div class=&quot;skill pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4&quot; v-for=&quot;(skill, key) in skills&quot;&gt;
+            &lt;filterable-tag :data-key=&quot;key&quot; :data-item=&quot;skill&quot; :filter-str=&quot;filterStr&quot; :on-filter=&quot;setVisibility&quot;&gt;&lt;/filterable-tag&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    window.vms[&quot;vm-skill-filterview&quot;] = new Vue({
+        el: &quot;#vm-skill-filterview&quot;,
+        components: [ FilterableTag ],
+        data: {
+            skills: skillMap, //Skill objects. Schema explained in API doc
+        },
+        methods: {
+            //...
+            setVisibility: function(e) {
+                if(e.isVisible) {
+                    e.$el.parentElement.classList.remove(&quot;hidden&quot;);
+                } else {
+                    e.$el.parentElement.classList.add(&quot;hidden&quot;);
+                }
+            }
+        }
+    });
+&lt;/script&gt;</code></pre>
+<p>The reason for controlling visibility at the parent level is simple: The parent is responsible for tag positioning, padding, margins, etc.</p>
+<p>If each tag toggled its own display, the css for the <code>.skill-list .skill</code> class relation would still need to be updated. Leaving the responsibility of visibility to the parent allows the <code>FilterableTag</code> component to be atomic in the way that a component should be. Many fledgling Component developers make the mistake of putting logic inside components that eliminates the components portability.</p>
+<h3 id="so-what-does-the-tag-actually-do">So what does the tag actually do?</h3>
+<p>The tag does two things: (1) Style itself as a two-part button, and (2) Watch a parent-provided <code>filterStr</code> prop to see if the filter matches any of the keywords from its own <code>dataItem</code>:</p>
+<pre><code class="language-js">export let FilterableTag = Vue.component(&#39;filterable-tag&#39;, {
+    data: function() {
+        return {
+            isVisible: true,
+        }
+    },
+    props: {
+        dataKey: String,
+        dataItem: Object,
+        filterStr: String,
+        onFilter: Function
+    },
+    template: /* html */`
+        &lt;div :id=&quot;&#39;ft-&#39; + dataKey&quot; class=&quot;ft-container&quot; v-on:click=&quot;openUrl&quot;&gt;
+            &lt;shorthand-ft-tag :data-item=&quot;dataItem&quot;&gt;&lt;/shorthand-ft-tag&gt;
+        &lt;/div&gt;
+    `,
+    watch: {
+        filterStr: function() {
+            let testFilter = new Promise((resolve) =&gt; {
+                // ... Filtering Algorithm covered in the next section of this document
+            }).then(() =&gt; {
+                if(this.onFilter) {
+                    this.onFilter(this);
+                }
+            })
+        },
+    },
+});</code></pre>
+<p>For good measure, here&#39;s the body of the <code>shorthand-ft-tag</code> that is referenced above. It&#39;s a functionless styling component that was written so I could later add a togglable <code>expanded-ft-tag</code> for added details regarding each skill in my skill-list:</p>
+<pre><code class="language-js">export let ShorthandTag = Vue.component(&#39;shorthand-ft-tag&#39;, {
+    props: {
+        dataItem: Object,
+    },
+    template: /* html */`
+        &lt;div class=&quot;ft-shorthand&quot;&gt;
+            &lt;div class=&quot;ft-ico-block&quot;&gt;
+                &lt;img class=&quot;ft-img&quot; :alt=&quot;dataItem.shorthand + &#39; logo&#39;&quot; v-if=&quot;dataItem.logo&quot; :src=&quot;&#39;/static/img/logos/&#39; + dataItem.logo&quot; /&gt;
+                &lt;span class=&quot;ft-ico fa&quot; :class=&quot;dataItem.altIcon&quot; v-if=&quot;!dataItem.logo&quot;&gt;&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;ft-label-block&quot;&gt;
+                {{dataItem.shorthand}}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `
+});</code></pre>
+<h2 id="the-filtering-algorithm">The Filtering Algorithm</h2>
+<p>To explain the filtering algorithm, some explanation of my tag&#39;s data structure is necessary. First, the data source:</p>
+<pre><code class="language-js">export let skills = [
+    {
+        shorthand: &quot;HTML&quot;,
+        logo: &quot;html5Logo.png&quot;,
+        url: &quot;https://www.w3schools.com/html/default.asp&quot;,
+        keywords: [&quot;web&quot;, &quot;html&quot;, &quot;ux&quot;, &quot;ui&quot;, &quot;ui/ux&quot;, &quot;design&quot;, &quot;frontend&quot;, &quot;client&quot;]
+    },
+    {
+        shorthand: &quot;Javascript&quot;,
+        logo: &quot;javascriptLogo.png&quot;,
+        url: &quot;https://www.javascript.com/&quot;,
+        keywords: [&quot;web&quot;, &quot;script&quot;, &quot;javascript&quot;, &quot;frontend&quot;, &quot;client&quot;]
+    },
+    {
+        shorthand: &quot;CSS&quot;,
+        logo: &quot;css3Logo.png&quot;,
+        url: &quot;https://www.w3schools.com/css/&quot;,
+        keywords: [&quot;web&quot;, &quot;css&quot;, &quot;ux&quot;, &quot;ui&quot;, &quot;ui/ux&quot;, &quot;design&quot;, &quot;style&quot;, &quot;styles&quot;, &quot;css3&quot;, &quot;sass&quot;, &quot;scss&quot;, &quot;animation&quot;, &quot;animations&quot;, &quot;frontend&quot;, &quot;client&quot;]
+    },
+    {
+        shorthand: &quot;VueJS&quot;,
+        logo: &quot;vueLogo.png&quot;,
+        url: &quot;https://vuejs.org/&quot;,
+        keywords: [&quot;vue&quot;, &quot;vuejs&quot;, &quot;web&quot;, &quot;modern&quot;, &quot;javascript&quot;, &quot;framework&quot;, &quot;components&quot;, &quot;databind&quot;, &quot;databinding&quot;, &quot;frontend&quot;, &quot;client&quot;, &quot;ui&quot;, &quot;ux&quot;, &quot;ui/ux&quot;, &quot;modular&quot;, &quot;module&quot;]
+    },
+    // ...
+]</code></pre>
+<p>Eventually, this data would be housed in a database, but building a DB wasn&#39;t my priority here. The key thing to watch here are the <code>shorthand</code> and <code>keywords</code> fields. Searching them as is wouldn&#39;t be that costly, since its such a small data set. I could perform a basic iterative <code>startsWith</code> search on all of these and my website wouldn&#39;t suffer a performance hit.</p>
+<p>But I wanted to showcase something less basic:</p>
+<h3 id="hash-matching">Hash Matching</h3>
+<p>When the data source is imported, I convert the keyword array into a key/value paired JSON map:</p>
+<pre><code class="language-js">import { skills } from &quot;/static/js/localData/skills.js&quot;;
+import { mapSkillArray, mapSkillKeywords } from &quot;/static/js/util/mapper.js&quot;;
+
+let skillMap = mapSkillArray(skills);
+mapSkillKeywords(skillMap);
+
+window.vms[&quot;vm-skill-filterview&quot;] = new Vue({
+    el: &quot;#vm-skill-filterview&quot;,
+    data: {
+        skills: skillMap,
+        //...
+    },
+});</code></pre>
+<p>The <code>mapSkillArray</code> and <code>mapSkillKeyword</code> algorithms above would take the single-item array:</p>
+<pre><code class="language-json">[ 
+    {
+        &quot;shorthand&quot; : &quot;HTML&quot;,
+        &quot;logo&quot; : &quot;html5Logo.png&quot;,
+        &quot;url&quot; : &quot;https://www.w3schools.com/html/default.asp&quot;,
+        &quot;keywords&quot; : [&quot;web&quot;, &quot;html&quot;, &quot;ux&quot;, &quot;ui&quot;, &quot;ui/ux&quot;, &quot;design&quot;, &quot;frontend&quot;, &quot;client&quot;]
+    }
+]</code></pre>
+<p>And convert it to the following:</p>
+<pre><code class="language-json">{
+    &quot;HTML&quot; : {
+        &quot;shorthand&quot; : &quot;HTML&quot;,
+        &quot;logo&quot; : &quot;html5Logo.png&quot;,
+        &quot;url&quot; : &quot;https://www.w3schools.com/html/default.asp&quot;,
+        &quot;keywords&quot; : [&quot;web&quot;, &quot;html&quot;, &quot;ux&quot;, &quot;ui&quot;, &quot;ui/ux&quot;, &quot;design&quot;, &quot;frontend&quot;, &quot;client&quot;],
+        &quot;keywordMap&quot; : {
+            &quot;web&quot; : &quot;web&quot;,
+            &quot;html&quot; : &quot;html&quot;,
+            &quot;ux&quot; : &quot;ux&quot;,
+            &quot;ui&quot; : &quot;ui&quot;,
+            &quot;ui/ux&quot; : &quot;ui/ux&quot;,
+            &quot;design&quot; : &quot;design&quot;,
+            &quot;frontend&quot; : &quot;frontend&quot;,
+            &quot;client&quot; : &quot;client&quot;
+        }
+    }
+}</code></pre>
+<p>Now, with keywords mapped, our searching algorithm in the <code>filterStr</code> watch function can provide results in linear-time ( <code>O(1)</code> ):</p>
+<pre><code class="language-js">export let FilterableTag = Vue.component(&#39;filterable-tag&#39;, {
+    data: function() {
+        return {
+            isVisible: true,
+        }
+    },
+    watch: {
+        filterStr: function() {
+            let testFilter = new Promise((resolve) =&gt; {
+                if(this.dataKey.toLowerCase() == this.filterStr.toLowerCase() || this.dataItem.keywordMap[this.filterStr.toLowerCase()]) {
+                    this.isVisible = true;
+                    resolve();
+                    return;
+                }
+
+                this.isVisible = false;
+                resolve();
+            }).then(() =&gt; {
+                if(this.onFilter) {
+                    this.onFilter(this);
+                }
+            })
+        },
+    },
+});</code></pre>
+<h3 id="drawbacks">Drawbacks</h3>
+<p>This sort of hashmap searching only works for exact-match searches. If you use my skill-filterview, you might be able to tell that it also supports <code>startsWith</code> matching. The honest answer for how I accomplished that is that I cheated. I also do a <code>startsWith</code> search that runs in <code>O(n)</code> time:</p>
+<pre><code class="language-js">    watch: {
+        filterStr: function() {
+            let testFilter = new Promise((resolve) =&gt; {
+                if(this.dataKey.toLowerCase() == this.filterStr.toLowerCase() || this.dataItem.keywordMap[this.filterStr.toLowerCase()]) {
+                    this.isVisible = true;
+                    resolve();
+                    return;
+                }
+
+                this.isVisible = false;
+
+                //An instant match against the hashes wasn&#39;t found. Execute a &#39;starts with&#39; matching search that may take longer.
+                //For big datasets, this would ideally move to the server as an asynchronous, cancellable function and results would iteratively load in as they are found
+                for(var kw of this.dataItem.keywords) {
+                    if(kw.toLowerCase().startsWith(this.filterStr.toLowerCase())) {
+                        //A &#39;starts with&#39; match was found
+                        this.isVisible = true;
+                        resolve();
+                        return;
+                    }    
+                };
+
+                resolve();
+            }).then(() =&gt; {
+                if(this.onFilter) {
+                    this.onFilter(this);
+                }
+            })
+        },
+    },</code></pre>
+<p>Because my dataset is so small, I can cheat like this and it won&#39;t hurt my application&#39;s performance at all. <code>O(n)</code> searching is fine on a small dataset.</p>
+<h3 id="but-what-about-large-datasets">But what about large datasets?</h3>
+<p>The two options that I immediately considered (there are others):</p>
+<ol>
+<li><p>Expand the <code>mapSkillKeywords</code> function to extract additional key values from the existing keywords. </p>
+<ul>
+<li>This, in and of itself, could be a costly operation, and should preferrably be done once at the server level and then the extracted partial match keys should be stored along with the skill item itself in the database. Tag data items would get big, but likely not so big that it wouldn&#39;t be worth the immense time savings on the filter operation.</li>
+</ul>
+</li>
+<li><p>Extract the <code>startsWith</code> portion of the search into an asynchronous, cancellable method that continues to add items to the filterview as it finds them.</p>
+<ul>
+<li>This would require a fair amount of refactoring from my current implementation, but it&#39;s a very viable search model. </li>
+<li>I initially set out to use this approach, but it&#39;s a non-trivial level of complexity creep on this component (This is why my current implementation uses a promise, even though the current algorithm doesn&#39;t need it).</li>
+</ul>
+</li>
+</ol>

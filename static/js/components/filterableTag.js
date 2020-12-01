@@ -19,7 +19,6 @@ export let FilterableTag = Vue.component('filterable-tag', {
         filterStr: function() {
             let testFilter = new Promise((resolve) => {
                 if(this.dataKey.toLowerCase() == this.filterStr.toLowerCase() || this.dataItem.keywordMap[this.filterStr.toLowerCase()]) {
-                    //A matching hash was found. Check to be sure it's an actual match
                     this.isVisible = true;
                     resolve();
                     return;

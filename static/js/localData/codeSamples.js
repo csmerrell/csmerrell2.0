@@ -51,8 +51,7 @@ export let CodeSample2 = `export let FilterableTag = Vue.component('filterable-t
     },
     template: /* html */\`
         <div :id="'ft-' + dataKey" class="ft-container" v-on:click="openUrl">
-            <shorthand-ft-tag v-if="!isExpanded" :data-item="dataItem"></shorthand-ft-tag>
-            <full-ft-tag v-else :data-item="dataItem"></full-ft-tag>
+            <shorthand-ft-tag :data-item="dataItem"></shorthand-ft-tag>
         </div>
     \`,
     watch: {
