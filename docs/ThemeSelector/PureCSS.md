@@ -235,4 +235,4 @@ Almost 100 lines of complex `scss` code, and it still needed an `onclick` to do 
 ## So why did I do it this way?
 Frankly, it's just because this app is showcase of my skills. Pure CSS _can_ be a useful design ideology for what it's worth. When properly tested and vetted, some basic facets of a web application can be black-boxed inside a PureCSS component like this one to truly optimize their runtime speed. Modern MVVM frameworks depend on costly observers and stateful javascript logic, and many developers underestimate how costly that can be.
 
-When performance is king for certain facets of a web application, eliminating overhead can be important, and I wanted to showcase that I have spent time learning this and other strategies for particular optimizations.
+When performance is king for certain facets of a web application, eliminating overhead can be important, and I wanted to showcase that I have spent time learning particular optimization strategies such as this one.
