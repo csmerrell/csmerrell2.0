@@ -101,7 +101,10 @@
 <pre><code class="language-scss"> .toggler-main {
      + .toggle-btn {
          overflow: hidden;
-         transition: all .2s ease;
+
+         &amp;:after,&amp;:before {
+             transition: all .2s ease;
+         }
 
          &amp;:after {
              left: 100%;
@@ -119,15 +122,11 @@
 <p>When the <code>toggler-main</code> checkbox is in its default state (unchecked), &quot;Dark&quot; displays, because it&#39;s the <code>data-tg-off</code> attr&#39;s value.</p>
 <pre><code class="language-scss">.toggler-main{
     &amp;:checked + .toggle-btn {
-        background: #86d993;
         &amp;:before {
             left: -100%;
         }
         &amp;:after {
             left: 0;
-        }
-        &amp;:active:after {
-            left: 10%;
         }
     }
 }</code></pre>

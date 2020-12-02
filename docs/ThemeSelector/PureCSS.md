@@ -120,7 +120,10 @@ The theme toggling button basically goes through the following steps:
     .toggler-main {
         + .toggle-btn {
             overflow: hidden;
-            transition: all .2s ease;
+
+            &:after,&:before {
+                transition: all .2s ease;
+            }
 
             &:after {
                 left: 100%;
@@ -140,15 +143,11 @@ When the `toggler-main` checkbox is in its default state (unchecked), "Dark" dis
 ```scss
 .toggler-main{
     &:checked + .toggle-btn {
-        background: #86d993;
         &:before {
             left: -100%;
         }
         &:after {
             left: 0;
-        }
-        &:active:after {
-            left: 10%;
         }
     }
 }
