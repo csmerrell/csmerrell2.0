@@ -1,0 +1,132 @@
+#resume {
+    position: relative;
+    font-size: 1rem;
+
+    .page {
+        position: absolute;
+        top: 1em;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: Arial, Helvetica, sans-serif;
+        width: 50em;
+        padding: 2rem;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 50em;
+
+        p {
+            font-family: Georgia, 'Times New Roman', Times, serif
+        }    
+
+        hr {
+            margin: 0 .28rem;
+            border-bottom: 2px solid black;
+        }
+    }
+
+    .brand {
+        td {
+            vertical-align: bottom;
+        }
+
+        .logo {
+            max-height: 7em;
+        }
+        
+        .name {
+            font-size: 5em;
+            font-weight: 300;
+            line-height: 1em;
+            padding-left: .75rem;
+        }
+        
+        .title {
+            padding-left: 1.25rem;
+            font-size: 1.75em;
+        }
+    }
+
+    .top-details {
+        width: 100%;
+        margin-top: .5rem;
+        position: relative;
+
+        .sitelink-backing {
+            width: 100%;
+        }
+
+        .sitelink {
+            position: absolute;
+            top: .8em;
+            left: 5em;
+            font-size: 1.25em;
+            font-weight: 600;
+        }
+        .sitelink-ad {
+            position: absolute;
+            color: #ffffff;
+            top: 2.28em;
+            left: 6.3em;
+            font-size: 1.22em;
+            font-weight: 400;
+        }
+
+        .contact {
+            font-size: 1.2em;
+            position: absolute;
+            top: .8em;
+            left: 18em;
+
+            .fa {
+                color: #da255bff;
+            }
+        }
+    }
+
+    .resume-body {
+        font-size: 1rem;
+        margin-top: 1em;
+
+        .header {
+            font-size: 1.5em;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--clr-accent); 
+        }
+        .employer {
+            margin-top: .5em;
+            font-size: 1.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: underline;
+            .location {
+                font-size: .6em;
+                font-weight: 400;
+                text-decoration: none;
+            }
+        }
+        .job-title, .dates {
+            padding-left: 1em;
+            font-size: 1.25em;
+        }
+    }
+}
+
+@media print {
+    #resume {
+        font-size: .8rem;
+        .page {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 3rem;
+            box-sizing: border-box;
+            transform: unset;
+            width: 100%;
+        }
+    }
+    .navbar, .footer {
+        display: none;
+    }
+}

@@ -62,69 +62,30 @@ I have taken some deep dives into PureCSS components, or components that have 0 
 </div>
 ```
 
-And the associated scss (This one's a lot to swallow, and I borrowed a lot of it from some real CSS gurus. I don't expect most people to follow it, so I'll summarize afterward): 
+And the associated scss (I don't necessarily expect most people to follow this easily, so I'll summarize afterward): 
 ```scss
-.toggler {
+.toggler-main {
     display: none;
- 
-    &, &:after, &:before, & *, & *:after, & *:before, & + .toggle-btn {
-        box-sizing: border-box;
-        &::selection {
-            background: none;
-        }
-    }
-    
+
+    //Style the adjacent sibling .toggle-btn element
     + .toggle-btn {
-        outline: 0;
-        display: block;
         width: 4em;
         height: 2em;
         position: relative;
+        display: inline-block;
         cursor: pointer;
-        user-select: none;
-    
-        &:after, &:before {
-            position: relative;
-            display: block;
-            content: "";
-            width: 50%;
-            height: 100%;
-        }
-    
-        &:after {
-            left: 0;
-        }
-
-        &:before {
-            display: none;
-        }
-    }
-    
-    &:checked + .toggle-btn:after {
-            left: 50%;
-    }
-}
-
-.toggler-main {
-    + .toggle-btn {
-        overflow: hidden;
         border-radius:2px;
-        backface-visibility: hidden;
-        -webkit-transition: all .2s ease;
-        transition: all .2s ease;
-        font-family: sans-serif;
-        background: #888;
+        overflow: hidden;
 
         &:after, &:before {
             display: inline-block;
+            -webkit-transition: all .2s ease;
             transition: all .2s ease;
             width: 100%;
             text-align: center;
             position: absolute;
             line-height: 2em;
             font-weight: bold;
-            color: #fff;
-            text-shadow: 0 1px 0 rgba(0,0,0,.4);
         }
     
         &:after {
@@ -136,24 +97,15 @@ And the associated scss (This one's a lot to swallow, and I borrowed a lot of it
             left: 0;
             content: attr(data-tg-off);
         }
-
-        &:active {
-            background: #888;
-            &:before {
-                left: -10%;
-            }
-        }
     }
+
+    //Adjust the adjacent sibling .toggle-btn when the .toggler-main is checked
     &:checked + .toggle-btn {
-        background: #86d993;
         &:before {
             left: -100%;
         }
         &:after {
             left: 0;
-        }
-        &:active:after {
-            left: 10%;
         }
     }
 }
