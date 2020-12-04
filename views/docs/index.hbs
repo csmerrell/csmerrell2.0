@@ -1,4 +1,162 @@
 {{!< docsHeader }}
-<h1 id="cs-merrell---demo-website-under-construction">CS Merrell - Demo Website (Under Construction)</h1>
-<p>A demo website showcasing my professional breadth of front end development skills.
- <br>NOTE: Documentation of the website as a whole is #4 in my list of TODOs for this app, after documenting the 3 highlights featured in the home screen&#39;s block carousel.</p>
+<h1 id="cs-merrell---demo-website">CS Merrell - Demo Website</h1>
+<p>A website showcasing what I can manage in 3-4 weeks of free time (~70 hours).</p>
+<h2 id="stack">Stack</h2>
+<ul>
+<li><strong>Server:</strong><ul>
+<li>Node, Express</li>
+</ul>
+</li>
+<li><strong>Front End:</strong><ul>
+<li>Vue, Sass, Pure, Handlebars</li>
+</ul>
+</li>
+<li><strong>Database:</strong><ul>
+<li>None yet (Front end was the priority)</li>
+</ul>
+</li>
+<li><strong>Build tools &amp; packaging:</strong><ul>
+<li>NPM, Gulp, Puppeteer</li>
+</ul>
+</li>
+<li><strong>Documentation:</strong><ul>
+<li>Markdown &amp; Gulp</li>
+</ul>
+</li>
+</ul>
+<h2 id="source-code-highlights">Source Code Highlights</h2>
+<p>Depending on which skills you&#39;re interested in, I can point you to where you&#39;ll find them in the source code:</p>
+<ul>
+<li><p>Vue Components (I&#39;ve done React/Angular in the past):</p>
+<ul>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/js/components/blockCarousel.js">BlockCarousel.js (Component definition)</a>, </p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/index.hbs#L70-L127">Landing page markup</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/index.hbs#L159-L179">Landing page script</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/components/blockCarousel.scss">Scss stylesheet</a>.</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/index.hbs#L128-L147">SkillFilterview (Landing page markup)</a>, </p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/index.hbs#L181-L248">SkillFilterview (Landing page script)</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/js/components/filterableTag.js">FilterableTag.js (Component definition)</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/js/util/mapper.js">Data hash-mapping</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/views/home.scss#L192-L277">Filter View scss styles</a>, <a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/components/filterableTag.scss">Filterable Tag component scss styles</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Dual-theme toggling:</p>
+<ul>
+<li><a href="/docs/themeselector/csstheming">Documentation</a>, <ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/globals/_colors.scss">Themed color enumerations</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/partials/navbar.hbs#L35-L59">Navbar toggling</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Noteworthy SCSS snippets:</p>
+<ul>
+<li><p><a href="/docs/themeselector/purecss">Pure css form validation</a>.</p>
+</li>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/components/toggle-btn.scss">Pure css sliding toggler button</a> (Scriptless, Used on the theme toggler),    </p>
+<ul>
+<li><a href="/docs/themeselector/purecss#novel-sometimes-unwieldy-concepts">Documentation on how it works</a>.</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/views/home.scss#L238-L259">Skill list bottom fade out</a>.</p>
+</li>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/views/home.scss#L44-L94">Flexbox, Responsive sizing</a>.</p>
+</li>
+</ul>
+</li>
+<li><p>Interesting algorithms:</p>
+<ul>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/js/util/mapper.js">Data hash-mapping</a>, </p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/js/components/filterableTag.js#L19-L46">Hash comparisons for O(1) searching</a>.</li>
+<li><a href="/docs/TagFilterview/Design#drawbacks">Why my search isn&#39;t actually O(1)</a>.</li>
+</ul>
+</li>
+<li><p>Asynchronous carousel fade transition events (Promises): </p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/js/components/blockCarousel.js#L49-L80">Carousel (parent) triggers the fade-out, awaits promise resolution to start fade-in</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/js/components/blockCarousel.js#L131-L161">Block (child) execution and resolution of the promise.</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Handlebars Templates (Partials &amp; Layouts):</p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/app.js#L10-L28">Express.js Configuration</a>, <ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/layouts/sharedTemplate.hbs">Shared header meta-data</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/layouts/centeredLayout.hbs">Sample &quot;centered&quot; layout</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/views/partials/navbar.hbs">Shared navbar partial</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Gulp automation:</p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/gulpfile.js#L14-L58">Sass &amp; Markdown preprocessing, Puppeteer to detect source changes and refresh browser</a></li>
+</ul>
+</li>
+<li><p>Express MVC Content Delivery (Routing):</p>
+<ul>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/controllers/docs/docs.controller.js">Docs View Routing Controller</a>, </p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/controllers/index.js">View Controller Routing Index</a>, </li>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/app.js#L42-L44">App route importing</a>. </li>
+</ul>
+</li>
+<li><p><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/api/test/test.controller.js">REST API Controller Sample</a>, </p>
+<ul>
+<li><a href="https://github.com/csmerrell/csmerrell2.0/blob/main/api/index.js">API Endpoint Index</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="where-the-time-went-roughly">Where the time went (roughly)</h2>
+<p>Everything here was created in roughly 60-70 hours of dev time. <strong>None of it was copied from past work</strong>. This should give you an idea of how familiar I am with this stuff.</p>
+<ul>
+<li><p><strong>(8 hours)</strong> - Standing up a custom MVC-tuned Node/Express boilerplate server and getting all my preferred libraries working together.</p>
+</li>
+<li><p><strong>(6 hours)</strong> - Writing the Block Carousel component</p>
+<ul>
+<li><strong>(4 hours)</strong> - <a href="/docs/BlockCarousel/GettingStarted">Overdocumenting</a> - <a href="/docs/BlockCarousel/API">the</a> - <a href="/docs/BlockCarousel/Design">Block Carousel</a> - <a href="/docs/BlockCarousel/ActionDesignRevisions">Component</a> <ul>
+<li>I went overboard here to give you a feel for how comprehensive I am where documentation is a concern (for either users or maintenance developers).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>(8 hours)</strong> - Writing the skill filterview section of the landing page.</p>
+<ul>
+<li><strong>(2 hours)</strong> - Writing a more reasonable amount of <a href="/docs/TagFilterview/Design">documentation</a> for the <a href="/docs/TagFilterview/TagAPI">filterview section</a></li>
+</ul>
+</li>
+<li><p><strong>(2 hours)</strong> - Implementing the dual-color theme</p>
+<ul>
+<li><strong>(2 hours)</strong> - Documenting the <a href="/docs/themeselector/csstheming">dual-color theme</a> and some particulars about <a href="/docs/themeselector/purecss">pure-css design</a>.</li>
+</ul>
+</li>
+<li><p><strong>(2 hours)</strong> - Making the top-level welcome blurb section.</p>
+<ul>
+<li><strong>(4 more hours)</strong> - Endlessly<sup>TM</sup> revising the welcome blurb.</li>
+</ul>
+</li>
+<li><p><strong>(6 hours)</strong> - Testing and bugfixing everything.</p>
+<ul>
+<li><strong>(4 more hours)</strong> - Testing various screen widths &amp; writing css media queries.</li>
+<li><strong>(4 extra hours)</strong> - Squashing a particular safari css bug where it can&#39;t handle alpha-channel <code>linear-gradient</code> animation using css3 hex or rgba <strong>variables</strong> (The variable has to be <a href="https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/views/home.scss#L255-L257"><em>just</em> rgb, and the alpha has to be written as a separate literal</a> <code>¯\_(ツ)_/¯</code>).</li>
+</ul>
+</li>
+<li><p><strong>(3 hours)</strong> - Configuring heroku hosting and debugging their automated https cert.</p>
+</li>
+<li><p><strong>(6 hours)</strong> - Misc improvements (Loading animation, handlebars template improvements, navbar improvements, trimming deprecated code).</p>
+</li>
+<li><p><strong>(8 hours)</strong> - Designing 3 logos in Inkscape and screening them against my wife (and other friends).</p>
+</li>
+<li><p><strong>(2 hours)</strong> - Writing this guide.</p>
+</li>
+</ul>

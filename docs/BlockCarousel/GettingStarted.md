@@ -1,4 +1,4 @@
-# Block Carousel (Documentation Ongoing)
+# Block Carousel
 A simple fading carousel [VueJS](https://vuejs.org) component designed to showcase code samples.
 
 ## Usage
