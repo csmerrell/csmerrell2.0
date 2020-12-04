@@ -173,7 +173,7 @@ window.vms[&quot;vm-skill-filterview&quot;] = new Vue({
         }
     }
 }</code></pre>
-<p>Now, with keywords mapped, our searching algorithm in the <code>filterStr</code> watch function can provide results in linear-time ( <code>O(1)</code> ):</p>
+<p>Now, with keywords mapped, our searching algorithm in the <code>filterStr</code> watch function can provide results in O(1) linear time (Technically <code>O(n)</code> because it runs for all <code>n</code> skills every time the filter changes):</p>
 <pre><code class="language-js">export let FilterableTag = Vue.component(&#39;filterable-tag&#39;, {
     data: function() {
         return {
@@ -200,7 +200,8 @@ window.vms[&quot;vm-skill-filterview&quot;] = new Vue({
     },
 });</code></pre>
 <h3 id="drawbacks">Drawbacks</h3>
-<p>This sort of hashmap searching only works for exact-match searches. If you use my skill-filterview, you might be able to tell that it also supports <code>startsWith</code> matching. The honest answer for how I accomplished that is that I cheated. I also do a <code>startsWith</code> search that runs in <code>O(n)</code> time:</p>
+<p>This sort of hashmap searching only works for exact-match searches. If you use my skill-filterview, you might be able to tell that it also supports <code>startsWith</code> matching. The honest answer for how I accomplished that is that I cheated. I also do a <code>startsWith</code> search that runs in O(n * m) time (<code>n == number of keywords</code>, <code>m == char length of each keyword</code>).</p>
+<p>This brings the total searching algorithmic complexity to O(n<sup>3</sup>), with one magnitude each for <code>numSkills</code>, <code>numKeywords</code>, and <code>length(keyword)</code>:</p>
 <pre><code class="language-js">    watch: {
         filterStr: function() {
             let testFilter = new Promise((resolve) =&gt; {
@@ -231,7 +232,13 @@ window.vms[&quot;vm-skill-filterview&quot;] = new Vue({
             })
         },
     },</code></pre>
-<p>Because my dataset is so small, I can cheat like this and it won&#39;t hurt my application&#39;s performance at all. <code>O(n)</code> searching is fine on a small dataset.</p>
+<p>Because my dataset is so small, I can cheat like this and it won&#39;t hurt my application&#39;s performance at all:</p>
+<ul>
+<li><code>numSkills</code>: ~30</li>
+<li><code>numKeywords</code>: max(12), min(4), median(6)</li>
+<li><code>length(keyword)</code>: max(20), min(3), median(8)</li>
+<li>Median-case searching cost: 30 * 6 * 8 = 1,440 operations (not bad as long as each operation doesn&#39;t do anything costly).</li>
+</ul>
 <h3 id="but-what-about-large-datasets">But what about large datasets?</h3>
 <p>The two options that I immediately considered (there are others):</p>
 <ol>

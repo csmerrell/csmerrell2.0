@@ -208,7 +208,7 @@ And convert it to the following:
 }
 ```
 
-Now, with keywords mapped, our searching algorithm in the `filterStr` watch function can provide results in linear-time ( `O(1)` ):
+Now, with keywords mapped, our searching algorithm in the `filterStr` watch function can provide results in O(1) linear time (Technically `O(n)` because it runs for all `n` skills every time the filter changes):
 
 ```js
 export let FilterableTag = Vue.component('filterable-tag', {
@@ -239,7 +239,9 @@ export let FilterableTag = Vue.component('filterable-tag', {
 ```
 
 ### Drawbacks
-This sort of hashmap searching only works for exact-match searches. If you use my skill-filterview, you might be able to tell that it also supports `startsWith` matching. The honest answer for how I accomplished that is that I cheated. I also do a `startsWith` search that runs in `O(n)` time:
+This sort of hashmap searching only works for exact-match searches. If you use my skill-filterview, you might be able to tell that it also supports `startsWith` matching. The honest answer for how I accomplished that is that I cheated. I also do a `startsWith` search that runs in O(n * m) time (`n == number of keywords`, `m == char length of each keyword`).
+
+This brings the total searching algorithmic complexity to O(n<sup>3</sup>), with one magnitude each for `numSkills`, `numKeywords`, and `length(keyword)`:
 
 ```js
     watch: {
@@ -274,7 +276,11 @@ This sort of hashmap searching only works for exact-match searches. If you use m
     },
 ```
 
-Because my dataset is so small, I can cheat like this and it won't hurt my application's performance at all. `O(n)` searching is fine on a small dataset.
+Because my dataset is so small, I can cheat like this and it won't hurt my application's performance at all:
+* `numSkills`: ~30
+* `numKeywords`: max(12), min(4), median(6)
+* `length(keyword)`: max(20), min(3), median(8)
+* Median-case searching cost: 30 * 6 * 8 = 1,440 operations (not bad as long as each operation doesn't do anything costly).
 
 ### But what about large datasets?
 The two options that I immediately considered (there are others):

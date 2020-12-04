@@ -30,15 +30,15 @@ Depending on which skills you're interested in, I can point you to where you'll 
         * [Filter View scss styles](https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/views/home.scss#L192-L277), [Filterable Tag component scss styles](https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/components/filterableTag.scss).
 
 * Dual-theme toggling:
-    * [Documentation](/docs/themeselector/csstheming), 
+    * [Documentation](/docs/ThemeSelector/CSSTheming), 
         * [Themed color enumerations](https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/globals/_colors.scss), 
         * [Navbar toggling](https://github.com/csmerrell/csmerrell2.0/blob/main/views/partials/navbar.hbs#L35-L59).
 
 * Noteworthy SCSS snippets:
-    * [Pure css form validation](/docs/themeselector/purecss).
+    * [Pure css form validation](/docs/ThemeSelector/PureCSS).
 
     * [Pure css sliding toggler button](https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/components/toggle-btn.scss) (Scriptless, Used on the theme toggler),    
-        * [Documentation on how it works](/docs/themeselector/purecss#novel-sometimes-unwieldy-concepts).
+        * [Documentation on how it works](/docs/ThemeSelector/PureCSS#novel-sometimes-unwieldy-concepts).
 
     * [Skill list bottom fade out](https://github.com/csmerrell/csmerrell2.0/blob/main/static/sass/views/home.scss#L238-L259).
 
