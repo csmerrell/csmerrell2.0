@@ -84,7 +84,7 @@ Everything here was created in roughly 60-70 hours of dev time. **None of it was
     * **(2 hours)** - Writing a more reasonable amount of [documentation](/docs/TagFilterview/Design) for the [filterview section](/docs/TagFilterview/TagAPI)
 
 * **(2 hours)** - Implementing the dual-color theme
-    * **(2 hours)** - Documenting the [dual-color theme](/docs/themeselector/csstheming) and some particulars about [pure-css design](/docs/themeselector/purecss).
+    * **(2 hours)** - Documenting the [dual-color theme](/docs/ThemeSelector/CSSTheming) and some particulars about [pure-css design](/docs/ThemeSelector/PureCSS).
 
 * **(2 hours)** - Making the top-level welcome blurb section.
     * **(4 more hours)** - Endlessly<sup>TM</sup> revising the welcome blurb.
